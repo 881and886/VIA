@@ -1,1504 +1,1063 @@
 <!DOCTYPE html>
-<html lang="zh-TW" class="h-full">
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>性格長處・六週日常實踐 | Character Strengths in Practice</title>
+  <title>性格長處・六週日常實踐 | VIA Character Strengths in Practice</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts & Font Awesome Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Cinzel:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- PDF.js CDN for parsing VIA Report PDF -->
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- PDF.js CDN for parsing VIA results -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
-  <script>
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            serif: ['"Noto Serif TC"', 'serif'],
-            sans: ['"Noto Sans TC"', 'sans-serif'],
-            display: ['"Cinzel"', 'serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          },
-          colors: {
-            warm: {
-              50: '#FAF8F5',
-              100: '#F4EFEA',
-              200: '#E8DED4',
-              300: '#D5C4B4',
-              700: '#6E5D4F',
-              800: '#4D4035',
-              900: '#2E261F'
-            },
-            parchment: '#F6F3EE',
-            cardbg: '#FAF8F5',
-            ink: '#2B2621',
-            muted: '#7A7067',
-            navy: '#223247',
-            gold: '#9E783D',
-            accent: '#C48B47'
-          }
-        }
-      }
-    }
-  </script>
-
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
     body {
-      background-color: #F4EFEA;
-      color: #2B2621;
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: #F7F5F0;
+      color: #2D3748;
     }
-    /* Custom Scrollbar for warm feel */
-    ::-webkit-scrollbar {
-      width: 7px;
-      height: 7px;
+
+    h1, h2, h3, .serif-font {
+      font-family: 'Noto Serif TC', serif;
     }
-    ::-webkit-scrollbar-track {
-      background: #E8DED4;
+
+    /* 自訂平滑莫蘭迪米色風格選中效果 */
+    .tab-active {
+      background-color: #1E293B !important;
+      color: #FFFFFF !important;
     }
-    ::-webkit-scrollbar-thumb {
-      background: #C4B5A5;
-      border-radius: 9999px;
+
+    .week-btn-active {
+      background-color: #1E293B !important;
+      color: #FFFFFF !important;
+      border-color: #1E293B !important;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #9E8D7C;
+
+    /* 隱藏滾動條但保持滾動 */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
     }
-    .custom-shadow {
-      box-shadow: 0 4px 20px -2px rgba(61, 47, 34, 0.06), 0 2px 6px -1px rgba(61, 47, 34, 0.04);
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   </style>
 </head>
-<body class="min-h-full flex flex-col font-sans antialiased text-ink">
+<body class="min-h-screen flex flex-col justify-between selection:bg-amber-200">
 
-  <header class="border-b border-[#E3D9CE] bg-[#FAF8F5]/90 backdrop-blur-md sticky top-0 z-40 px-4 sm:px-6 py-3">
-    <div class="max-w-4xl mx-auto flex items-center justify-between">
+  <!-- 頂部導航與狀態列 -->
+  <header class="bg-[#F2EFE9] border-b border-[#E2DDD3] sticky top-0 z-30 px-4 lg:px-8 py-3.5 transition-all">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
       <div>
-        <span class="text-[10px] tracking-[0.2em] uppercase font-display text-muted block font-semibold">Character Strengths in Practice</span>
-        <div class="flex items-center gap-2.5">
-          <h1 class="text-xl sm:text-2xl font-serif font-bold text-ink tracking-tight">性格長處・六週日常實踐</h1>
-          <span class="hidden sm:inline-block text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200 font-medium">碩專/正向心理學專用</span>
+        <div class="text-[11px] tracking-widest text-[#78716C] uppercase font-semibold">Character Strengths in Practice</div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-xl sm:text-2xl font-bold text-[#1C1917] tracking-tight serif-font">性格長處・六週日常實踐</h1>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-medium">碩專/正向心理學專用</span>
         </div>
+        <p class="text-xs text-[#78716C] mt-0.5">每天 3-5 分鐘記一筆・讓性格優勢在日常中紮根轉化</p>
       </div>
 
       <div class="flex items-center gap-3">
+        <!-- 儲存進度資訊 -->
         <div class="text-right">
-          <div id="progressFraction" class="text-xs sm:text-sm font-semibold font-mono text-navy">0/42 天・已儲存</div>
-          <div id="lastSavedIndicator" class="text-[10px] text-muted flex items-center justify-end gap-1">
-            <i class="fa-solid fa-cloud-arrow-up text-emerald-600"></i>
-            <span>隨寫即存</span>
+          <div class="text-xs font-semibold text-slate-800">
+            <span id="savedCountText" class="font-bold text-slate-900">0</span>/42 天・已儲存
+          </div>
+          <div class="text-[11px] text-emerald-700 flex items-center justify-end gap-1" id="saveStatusIndicator">
+            <i data-lucide="check" class="w-3 h-3"></i> 即時自動存檔中
           </div>
         </div>
-        <button onclick="openPdfModal()" class="flex items-center gap-1.5 px-3 py-1.5 bg-[#EFE9DF] hover:bg-[#E5DDD0] text-ink text-xs rounded-lg border border-[#DDD3C5] transition active:scale-95">
-          <i class="fa-solid fa-file-pdf text-rose-700"></i>
-          <span class="hidden sm:inline">匯入 VIA 報告</span>
-          <span class="sm:hidden">PDF</span>
+
+        <!-- 匯入 PDF 按鈕 -->
+        <button onclick="triggerPdfUpload()" class="flex items-center gap-1.5 px-3 py-1.5 bg-[#EAE5DC] hover:bg-[#DDD6C9] text-stone-800 rounded-lg text-xs font-medium border border-[#D5CEBF] transition-all shadow-sm">
+          <i data-lucide="file-up" class="w-3.5 h-3.5 text-rose-700"></i>
+          <span>匯入 VIA 報告</span>
         </button>
+        <input type="file" id="viaPdfInput" accept=".pdf,.txt" class="hidden" onchange="handlePdfUpload(event)">
       </div>
     </div>
   </header>
 
-  <nav class="bg-[#FAF8F5] border-b border-[#E3D9CE] px-4">
-    <div class="max-w-4xl mx-auto flex space-x-1 sm:space-x-4">
-      <button id="tabBtn-daily" onclick="switchMainTab('daily')" class="py-3 px-3 sm:px-4 text-xs sm:text-sm font-semibold border-b-2 border-navy text-navy flex items-center gap-1.5 transition">
-        <i class="fa-solid fa-calendar-check"></i>
-        <span>每日紀錄</span>
+  <!-- 主功能切換 Tabs -->
+  <nav class="bg-[#ECE7DE] border-b border-[#DDD7CB] px-4">
+    <div class="max-w-5xl mx-auto flex gap-1 sm:gap-2 overflow-x-auto no-scrollbar py-2 text-sm font-medium">
+      <button onclick="switchMainTab('daily')" id="tab-btn-daily" class="tab-active flex items-center gap-2 px-4 py-2 rounded-lg text-stone-700 hover:bg-[#DDD7CB] transition-all">
+        <i data-lucide="calendar" class="w-4 h-4"></i> 每日紀錄
       </button>
-      <button id="tabBtn-summary" onclick="switchMainTab('summary')" class="py-3 px-3 sm:px-4 text-xs sm:text-sm font-medium border-b-2 border-transparent text-muted hover:text-ink flex items-center gap-1.5 transition">
-        <i class="fa-solid fa-chart-pie"></i>
-        <span>整理總表</span>
+      <button onclick="switchMainTab('overview')" id="tab-btn-overview" class="flex items-center gap-2 px-4 py-2 rounded-lg text-stone-700 hover:bg-[#DDD7CB] transition-all">
+        <i data-lucide="pie-chart" class="w-4 h-4"></i> 整理總表
       </button>
-      <button id="tabBtn-catalog" onclick="switchMainTab('catalog')" class="py-3 px-3 sm:px-4 text-xs sm:text-sm font-medium border-b-2 border-transparent text-muted hover:text-ink flex items-center gap-1.5 transition">
-        <i class="fa-solid fa-book-bookmark"></i>
-        <span>長處對照</span>
+      <button onclick="switchMainTab('matrix')" id="tab-btn-matrix" class="flex items-center gap-2 px-4 py-2 rounded-lg text-stone-700 hover:bg-[#DDD7CB] transition-all">
+        <i data-lucide="book-open" class="w-4 h-4"></i> 長處對照
       </button>
-      <button id="tabBtn-backup" onclick="switchMainTab('backup')" class="py-3 px-3 sm:px-4 text-xs sm:text-sm font-medium border-b-2 border-transparent text-muted hover:text-ink flex items-center gap-1.5 transition">
-        <i class="fa-solid fa-database"></i>
-        <span>備份與匯出</span>
+      <button onclick="switchMainTab('backup')" id="tab-btn-backup" class="flex items-center gap-2 px-4 py-2 rounded-lg text-stone-700 hover:bg-[#DDD7CB] transition-all">
+        <i data-lucide="hard-drive-download" class="w-4 h-4"></i> 備份與匯出
       </button>
     </div>
   </nav>
 
-  <!-- Toast Notification Message Container -->
-  <div id="toastBox" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+  <!-- 主內容容器 -->
+  <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 space-y-6">
 
-  <main class="max-w-4xl w-full mx-auto p-4 sm:p-6 flex-1 flex flex-col">
+    <!-- TAB 1: 每日記錄區 -->
+    <div id="view-daily" class="space-y-6">
 
-    <!-- ==================== TAB 1: DAILY PRACTICE LOG ==================== -->
-    <section id="view-daily" class="space-y-5">
-      
-      <!-- Week Selection Pill Buttons -->
-      <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
-        <button onclick="selectWeek(1)" id="weekBtn-1" class="p-2 sm:p-2.5 rounded-xl text-center border transition-all bg-navy text-white border-navy custom-shadow">
-          <div class="text-[11px] font-bold">第1週</div>
-          <div class="text-[10px] opacity-90">Aware</div>
-          <div class="text-[10px] font-mono mt-0.5 opacity-75" id="weekBadge-1">0/7</div>
+      <!-- 週數切換卡 (第 1 週至第 6 週) -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+        <button onclick="selectWeek(1)" id="week-nav-1" class="week-btn-active bg-[#EBE6DC] border border-[#DDD6C8] p-2.5 rounded-xl text-left hover:border-stone-500 transition-all">
+          <div class="text-[11px] font-bold uppercase tracking-wider">第1週</div>
+          <div class="text-xs font-semibold">Aware (覺察)</div>
+          <div class="text-[10px] opacity-75 mt-1" id="week-stat-1">0/7</div>
         </button>
-        <button onclick="selectWeek(2)" id="weekBtn-2" class="p-2 sm:p-2.5 rounded-xl text-center border transition-all bg-[#FAF8F5] text-ink border-[#DDD3C5] hover:bg-[#F2ECE3]">
-          <div class="text-[11px] font-bold">第2週</div>
-          <div class="text-[10px] text-muted">Explore</div>
-          <div class="text-[10px] font-mono mt-0.5 text-muted" id="weekBadge-2">0/7</div>
+        <button onclick="selectWeek(2)" id="week-nav-2" class="bg-[#EBE6DC] border border-[#DDD6C8] p-2.5 rounded-xl text-left hover:border-stone-500 transition-all">
+          <div class="text-[11px] font-bold uppercase tracking-wider">第2週</div>
+          <div class="text-xs font-semibold">Explore (探索)</div>
+          <div class="text-[10px] opacity-75 mt-1" id="week-stat-2">0/7</div>
         </button>
-        <button onclick="selectWeek(3)" id="weekBtn-3" class="p-2 sm:p-2.5 rounded-xl text-center border transition-all bg-[#FAF8F5] text-ink border-[#DDD3C5] hover:bg-[#F2ECE3]">
-          <div class="text-[11px] font-bold">第3週</div>
-          <div class="text-[10px] text-muted">Apply</div>
-          <div class="text-[10px] font-mono mt-0.5 text-muted" id="weekBadge-3">0/7</div>
+        <button onclick="selectWeek(3)" id="week-nav-3" class="bg-[#EBE6DC] border border-[#DDD6C8] p-2.5 rounded-xl text-left hover:border-stone-500 transition-all">
+          <div class="text-[11px] font-bold uppercase tracking-wider">第3週</div>
+          <div class="text-xs font-semibold">Apply (應用)</div>
+          <div class="text-[10px] opacity-75 mt-1" id="week-stat-3">0/7</div>
         </button>
-        <button onclick="selectWeek(4)" id="weekBtn-4" class="p-2 sm:p-2.5 rounded-xl text-center border transition-all bg-[#FAF8F5] text-ink border-[#DDD3C5] hover:bg-[#F2ECE3]">
-          <div class="text-[11px] font-bold">第4週</div>
-          <div class="text-[10px] text-muted">New ways</div>
-          <div class="text-[10px] font-mono mt-0.5 text-muted" id="weekBadge-4">0/7</div>
+        <button onclick="selectWeek(4)" id="week-nav-4" class="bg-[#EBE6DC] border border-[#DDD6C8] p-2.5 rounded-xl text-left hover:border-stone-500 transition-all">
+          <div class="text-[11px] font-bold uppercase tracking-wider">第4週</div>
+          <div class="text-xs font-semibold">New ways (新途徑)</div>
+          <div class="text-[10px] opacity-75 mt-1" id="week-stat-4">0/7</div>
         </button>
-        <button onclick="selectWeek(5)" id="weekBtn-5" class="p-2 sm:p-2.5 rounded-xl text-center border transition-all bg-[#FAF8F5] text-ink border-[#DDD3C5] hover:bg-[#F2ECE3]">
-          <div class="text-[11px] font-bold">第5週</div>
-          <div class="text-[10px] text-muted">Challenge</div>
-          <div class="text-[10px] font-mono mt-0.5 text-muted" id="weekBadge-5">0/7</div>
+        <button onclick="selectWeek(5)" id="week-nav-5" class="bg-[#EBE6DC] border border-[#DDD6C8] p-2.5 rounded-xl text-left hover:border-stone-500 transition-all">
+          <div class="text-[11px] font-bold uppercase tracking-wider">第5週</div>
+          <div class="text-xs font-semibold">Challenge (挑戰)</div>
+          <div class="text-[10px] opacity-75 mt-1" id="week-stat-5">0/7</div>
         </button>
-        <button onclick="selectWeek(6)" id="weekBtn-6" class="p-2 sm:p-2.5 rounded-xl text-center border transition-all bg-[#FAF8F5] text-ink border-[#DDD3C5] hover:bg-[#F2ECE3]">
-          <div class="text-[11px] font-bold">第6週</div>
-          <div class="text-[10px] text-muted">Flexible use</div>
-          <div class="text-[10px] font-mono mt-0.5 text-muted" id="weekBadge-6">0/7</div>
+        <button onclick="selectWeek(6)" id="week-nav-6" class="bg-[#EBE6DC] border border-[#DDD6C8] p-2.5 rounded-xl text-left hover:border-stone-500 transition-all">
+          <div class="text-[11px] font-bold uppercase tracking-wider">第6週</div>
+          <div class="text-xs font-semibold">Flexible (靈活)</div>
+          <div class="text-[10px] opacity-75 mt-1" id="week-stat-6">0/7</div>
         </button>
       </div>
 
-      <!-- Current Week Guide Banner -->
-      <div id="weekGuideBanner" class="bg-[#FAF8F5] rounded-xl p-3 sm:p-4 border border-[#E3D9CE] flex items-start gap-3">
-        <div class="w-8 h-8 rounded-lg bg-navy/10 text-navy flex items-center justify-center shrink-0 text-sm font-bold">
-          <i class="fa-solid fa-bullseye"></i>
-        </div>
-        <div class="flex-1">
+      <!-- 當週導讀引導提示卡片 -->
+      <div class="bg-[#ECE7DC] border border-[#DDD6C6] rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+        <div>
           <div class="flex items-center gap-2">
-            <h3 class="font-serif font-bold text-sm text-ink" id="weekThemeTitle">Aware｜我有哪些長處？</h3>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-200" id="weekStagePill">辨識標誌長處</span>
+            <span id="currentWeekTitle" class="font-bold text-[#1C1917] text-base serif-font">Aware ｜ 我有哪些長處？</span>
           </div>
-          <p class="text-xs text-muted mt-1 leading-relaxed" id="weekThemeDesc">
-            辨識前 5 項 signature strengths，在生活中觀察它們自然浮現的時刻，建立自我長處敏感度。
-          </p>
+          <p id="currentWeekSub" class="text-xs text-stone-600 mt-0.5">辨識前 5 項 signature strengths，觀察它在今天哪個微小瞬間自然浮現。</p>
+        </div>
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1" id="dayPillContainer">
+          <!-- 1~7 天快速切換按鈕由 JS 繪製 -->
         </div>
       </div>
 
-      <!-- Day selector tabs for active week -->
-      <div class="flex items-center gap-1.5 overflow-x-auto pb-1" id="dayTabsContainer">
-        <!-- Injected via JavaScript -->
-      </div>
-
-      <div class="bg-[#FAF8F5] rounded-2xl border border-[#E3D9CE] p-5 sm:p-6 custom-shadow space-y-5">
+      <!-- 核心日常填寫卡片 -->
+      <div class="bg-white border border-[#E5DFD3] rounded-2xl p-5 sm:p-7 shadow-sm space-y-6">
         
-        <!-- Header row of the active day -->
-        <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-[#E8DED4]">
+        <!-- 頂部：天數、長處分類徽章、日期 -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#F0EBE0] pb-4">
           <div class="flex items-center gap-2.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-600" id="dayCompletionDot"></span>
-            <h3 class="font-serif font-bold text-base text-ink" id="currentDayTitle">Day 1 · 好奇心</h3>
-            <span class="text-xs px-2 py-0.5 rounded bg-[#EDE5DB] text-muted font-medium" id="currentDayVirtueBadge">智慧與知識</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-600"></span>
+            <span id="dayHeaderLabel" class="text-base font-bold text-stone-900 serif-font">Day 1</span>
+            <span id="dayVirtueBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700 border border-stone-200">智慧與知識</span>
           </div>
           <div class="flex items-center gap-2">
-            <label class="text-xs text-muted">日期（選填）</label>
-            <input type="text" id="logDate" placeholder="例如 9/22" class="px-2.5 py-1 text-xs bg-white border border-[#DDD3C5] rounded-lg text-ink w-24 text-right focus:outline-none focus:border-navy">
+            <label class="text-xs text-stone-500">日期 (選填)：</label>
+            <input type="date" id="inputDate" onchange="autoSaveCurrentDay()" class="bg-[#F8F6F0] border border-[#E2DCCE] rounded-lg px-2.5 py-1 text-xs text-stone-700 focus:outline-none focus:border-stone-600">
           </div>
         </div>
 
-        <!-- Signature Strengths Selector Row -->
+        <!-- 選擇使用哪項長處 (下拉式) -->
         <div class="space-y-1.5">
-          <div class="flex items-center justify-between">
-            <label class="text-xs font-bold text-ink flex items-center gap-1.5">
-              <span>使用哪項長處</span>
-              <span class="text-[10px] text-amber-800 bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">優先列出個人前 5 項</span>
-            </label>
-            <button onclick="openSignatureModal()" class="text-[11px] text-navy hover:underline flex items-center gap-1">
-              <i class="fa-solid fa-pen-to-square"></i>
-              <span>自訂前5大長處</span>
+          <div class="flex justify-between items-center">
+            <label class="text-xs font-semibold text-stone-700">使用哪項長處</label>
+            <button onclick="openTopStrengthsModal()" class="text-[11px] text-amber-800 hover:text-amber-950 underline flex items-center gap-1">
+              <i data-lucide="sliders" class="w-3 h-3"></i> 調整我的前 5 大標誌長處
             </button>
           </div>
-          
-          <select id="strengthSelect" onchange="handleStrengthChange()" class="w-full text-xs sm:text-sm p-2.5 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy font-medium">
-            <!-- Dynamically populated -->
+          <select id="strengthSelect" onchange="onStrengthSelectedChange()" class="w-full bg-[#FAF8F5] border border-[#DDD6C8] rounded-xl px-3.5 py-2.5 text-sm text-stone-800 focus:outline-none focus:border-stone-800 transition-all">
+            <!-- 由 JS 自動填入個人前 5 大置頂與全部 24 項 -->
           </select>
         </div>
 
-        <!-- Strength Context & Definition Card -->
-        <div id="strengthInfoCard" class="bg-[#F4EFEA] rounded-xl p-3.5 border border-[#E3D9CE] space-y-1 text-xs text-ink leading-relaxed">
-          <div class="flex items-center gap-2 font-semibold">
-            <span id="cardStrengthName" class="text-navy font-bold">好奇心 Curiosity</span>
-            <span id="cardVirtueTag" class="text-[10px] px-2 py-0.2 bg-white rounded-full border border-[#DDD3C5] text-muted">智慧與知識</span>
+        <!-- 長處定義與範例導引框 -->
+        <div id="strengthDefinitionBox" class="bg-[#F9F7F2] border border-[#E9E3D6] rounded-xl p-3.5 text-xs text-stone-700 space-y-1.5">
+          <div class="flex items-center gap-2">
+            <span id="defStrengthName" class="font-bold text-stone-900 text-sm">好奇心 Curiosity</span>
+            <span id="defVirtueName" class="text-[10px] px-2 py-0.5 bg-[#EAE4D7] rounded-full text-stone-700">智慧與知識</span>
           </div>
-          <p id="cardDefinition" class="text-muted">對新事物、經驗與問題保持探索興趣。</p>
-          <div class="text-[11px] text-amber-900 bg-amber-50/70 p-2 rounded-lg border border-amber-200/60 mt-1">
-            <strong>例：</strong><span id="cardExample">遇到陌生理論先問「它和我已知的有何不同？」</span>
+          <p id="defDescription" class="text-stone-600 leading-relaxed">對新事物、經驗與問題保持探索興趣。</p>
+          <div id="defExample" class="text-stone-500 italic bg-white/70 p-2 rounded border border-[#EDE7DC]">
+            例：遇到陌生理論先問「它和我已知的有何不同？」
           </div>
         </div>
 
-        <!-- Input 1: Context & Challenge -->
-        <div class="space-y-1">
-          <label class="block text-xs font-bold text-ink">情境 / 挑戰</label>
-          <textarea id="logContext" rows="2" placeholder="例：同學用 Claude 做了一個性格長處的日常實踐表，感覺很厲害..." class="w-full text-xs sm:text-sm p-3 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy leading-relaxed"></textarea>
+        <!-- 三步驟記錄：情境/挑戰、做了什麼、結果如何 -->
+        <div class="space-y-4">
+          <!-- 1. 情境/挑戰 -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-stone-700 flex justify-between">
+              <span>情境 / 挑戰</span>
+              <span class="text-[11px] text-stone-400 font-normal">當時發生了什麼事？</span>
+            </label>
+            <textarea id="inputSituation" oninput="autoSaveCurrentDay()" rows="2" placeholder="簡述當天的具體情境、遇到的瓶頸或日常互動..." class="w-full bg-[#FAF8F5] border border-[#DDD6C8] rounded-xl p-3 text-sm text-stone-800 placeholder:text-stone-400 focus:outline-none focus:border-stone-800 transition-all"></textarea>
+          </div>
+
+          <!-- 2. 做了什麼 -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-stone-700 flex justify-between">
+              <span>做了什麼</span>
+              <span class="text-[11px] text-stone-400 font-normal">你如何調用並展現這項性格長處？</span>
+            </label>
+            <textarea id="inputAction" oninput="autoSaveCurrentDay()" rows="2" placeholder="具體的言語、思維切換或行動表現..." class="w-full bg-[#FAF8F5] border border-[#DDD6C8] rounded-xl p-3 text-sm text-stone-800 placeholder:text-stone-400 focus:outline-none focus:border-stone-800 transition-all"></textarea>
+          </div>
+
+          <!-- 3. 結果如何 -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-stone-700 flex justify-between">
+              <span>結果如何</span>
+              <span class="text-[11px] text-stone-400 font-normal">事件結果如何？對自己或他人有何影響？</span>
+            </label>
+            <textarea id="inputResult" oninput="autoSaveCurrentDay()" rows="2" placeholder="心境轉變、互動結果或事情的進展..." class="w-full bg-[#FAF8F5] border border-[#DDD6C8] rounded-xl p-3 text-sm text-stone-800 placeholder:text-stone-400 focus:outline-none focus:border-stone-800 transition-all"></textarea>
+          </div>
         </div>
 
-        <!-- Input 2: What did you do? -->
-        <div class="space-y-1">
-          <label class="block text-xs font-bold text-ink">做了什麼</label>
-          <textarea id="logAction" rows="2" placeholder="例：我也很想用 Claude 來做一些東西，但現在工具太多了，Claude 我還沒摸熟..." class="w-full text-xs sm:text-sm p-3 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy leading-relaxed"></textarea>
-        </div>
-
-        <!-- Input 3: What was the result? -->
-        <div class="space-y-1">
-          <label class="block text-xs font-bold text-ink">結果如何</label>
-          <textarea id="logResult" rows="2" placeholder="例：能做的東西有限，我還是比較擅長用 ChatGPT 跟 Gemini..." class="w-full text-xs sm:text-sm p-3 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy leading-relaxed"></textarea>
-        </div>
-
-        <!-- Section 4: Integrated Reflection with 3 Direction Suggestions -->
-        <div class="space-y-3 pt-2">
+        <!-- 整合反思引導區 (給我三個方向) -->
+        <div class="space-y-3 pt-2 border-t border-[#F0EBE0]">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-muted" id="reflectionGuideLabel">整合反思：優勢使用模式 / 情境適切性 / 彈性因應</span>
-            <button id="suggestBtn" onclick="generateThreeDirections()" class="px-3.5 py-1.5 rounded-lg border border-[#DDD3C5] bg-white hover:bg-[#F2ECE3] text-ink text-xs font-semibold shadow-sm transition active:scale-95">
-              給我三個方向
+            <label class="text-xs font-semibold text-stone-800 flex items-center gap-1.5">
+              <span>整合反思</span>
+              <span id="reflectionThemeSubtitle" class="text-stone-500 font-normal text-[11px]">：優勢使用模式 / 情境適切性 / 彈性因應</span>
+            </label>
+            <button onclick="generateThreeDirections()" class="px-3 py-1 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-xs font-medium border border-stone-300 transition-all flex items-center gap-1">
+              <i data-lucide="sparkles" class="w-3 h-3 text-amber-700"></i>
+              <span id="threeDirBtnLabel">給我三個方向</span>
             </button>
           </div>
 
-          <!-- Suggestion Cards Container -->
+          <!-- 三個方向建議卡片容器 (點擊可自動引用) -->
           <div id="threeDirectionsContainer" class="hidden space-y-2.5">
-            <!-- 3 directional prompt cards injected by JS -->
+            <!-- JS 動態插入 3 張引導卡片 -->
           </div>
 
-          <!-- Reflection Freeform Input & Satisfaction Rating -->
-          <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 pt-1">
-            <div class="sm:col-span-8 space-y-1">
-              <label class="block text-xs font-bold text-ink flex items-center justify-between">
-                <span>整合反思內文</span>
-                <span class="text-[11px] text-muted font-normal">（可點擊上方引導卡片直接填入）</span>
-              </label>
-              <textarea id="logReflection" rows="4" placeholder="在此處整理你的省思、體悟或點選上方三個方向代入修改..." class="w-full text-xs sm:text-sm p-3 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy leading-relaxed"></textarea>
-            </div>
-            <div class="sm:col-span-4 space-y-1">
-              <label class="block text-xs font-bold text-ink">
-                <span>長處發揮滿意度</span>
-                <span id="scoreDisplay" class="text-xs font-mono font-bold text-amber-700 ml-1">4 / 5</span>
-              </label>
-              <div class="bg-white p-3 rounded-xl border border-[#DDD3C5] flex flex-col justify-center gap-1">
-                <input type="range" id="logRating" min="1" max="5" value="4" oninput="updateRatingDisplay(this.value)" class="w-full accent-navy cursor-pointer">
-                <div class="flex justify-between text-[10px] text-muted font-mono">
-                  <span>1 微弱</span>
-                  <span>3 普通</span>
-                  <span>5 充沛流暢</span>
-                </div>
-              </div>
-            </div>
+          <div class="space-y-1.5">
+            <textarea id="inputReflection" oninput="autoSaveCurrentDay()" rows="4" placeholder="在此整合上述三個面向的反思，或是點擊上方推薦方向填入..." class="w-full bg-[#FAF8F5] border border-[#DDD6C8] rounded-xl p-3 text-sm text-stone-800 placeholder:text-stone-400 focus:outline-none focus:border-stone-800 transition-all"></textarea>
           </div>
         </div>
 
-        <!-- Footer Actions -->
-        <div class="pt-3 border-t border-[#E8DED4] flex items-center justify-between">
-          <span class="text-xs text-muted flex items-center gap-1.5" id="dayStatusFeedback">
-            <i class="fa-solid fa-check text-emerald-600"></i>
-            <span>資料已自動存入瀏覽器本機快取</span>
-          </span>
-          <div class="flex gap-2">
-            <button onclick="prevDay()" class="px-3 py-1.5 rounded-lg border border-[#DDD3C5] text-xs font-medium hover:bg-white text-ink transition">上一天</button>
-            <button onclick="nextDay()" class="px-3.5 py-1.5 rounded-lg bg-navy hover:bg-navy/90 text-white text-xs font-semibold shadow-sm transition">下一天</button>
+        <!-- 實踐自評評分條 -->
+        <div class="bg-[#FAF8F4] border border-[#E9E3D8] rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="text-xs">
+            <div class="font-semibold text-stone-800">今日實踐自我效能評分</div>
+            <div class="text-[11px] text-stone-500">1 (生疏/勉強) 至 5 (自然流暢/深具充實感)</div>
           </div>
+          <div class="flex items-center gap-2">
+            <div class="flex gap-1" id="ratingBtnGroup">
+              <button onclick="setRating(1)" class="w-8 h-8 rounded-lg border border-stone-300 text-xs font-bold hover:bg-stone-200">1</button>
+              <button onclick="setRating(2)" class="w-8 h-8 rounded-lg border border-stone-300 text-xs font-bold hover:bg-stone-200">2</button>
+              <button onclick="setRating(3)" class="w-8 h-8 rounded-lg border border-stone-300 text-xs font-bold hover:bg-stone-200">3</button>
+              <button onclick="setRating(4)" class="w-8 h-8 rounded-lg border border-stone-300 text-xs font-bold hover:bg-stone-200">4</button>
+              <button onclick="setRating(5)" class="w-8 h-8 rounded-lg border border-stone-300 text-xs font-bold hover:bg-stone-200">5</button>
+            </div>
+            <span id="ratingDisplayLabel" class="text-xs font-bold text-amber-900 ml-2">未評分</span>
+          </div>
+        </div>
+
+        <!-- 底部切換天數按鈕 -->
+        <div class="flex items-center justify-between pt-2">
+          <button onclick="goToPrevDay()" id="btnPrevDay" class="px-3.5 py-2 rounded-lg border border-stone-300 bg-white text-xs font-medium text-stone-700 hover:bg-stone-50 flex items-center gap-1">
+            <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i> 上一天
+          </button>
+          <span class="text-xs text-stone-400 font-mono" id="dayPositionIndicator">Day 1 of 42</span>
+          <button onclick="goToNextDay()" id="btnNextDay" class="px-3.5 py-2 rounded-lg bg-stone-900 text-white text-xs font-medium hover:bg-stone-800 flex items-center gap-1 shadow-sm">
+            下一天 <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+          </button>
         </div>
 
       </div>
+    </div>
 
-    </section>
-
-    <!-- ==================== TAB 2: SUMMARY & STATS ==================== -->
-    <section id="view-summary" class="hidden space-y-5">
+    <!-- TAB 2: 整理總表區 (統計分析與甘特檢視) -->
+    <div id="view-overview" class="hidden space-y-6">
       
-      <!-- Overall Progress Card -->
-      <div class="bg-[#FAF8F5] rounded-2xl border border-[#E3D9CE] p-5 custom-shadow space-y-3">
+      <!-- 統計大卡 -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div class="bg-white border border-[#E2DDD3] p-4 rounded-xl">
+          <div class="text-[11px] text-stone-500 font-semibold uppercase">實踐天數累計</div>
+          <div class="text-2xl font-bold text-stone-900 mt-1" id="statCompletedDays">0 / 42</div>
+          <div class="text-[10px] text-stone-400 mt-1" id="statPercentText">完成率 0%</div>
+        </div>
+        <div class="bg-white border border-[#E2DDD3] p-4 rounded-xl">
+          <div class="text-[11px] text-stone-500 font-semibold uppercase">累計反思字數</div>
+          <div class="text-2xl font-bold text-stone-900 mt-1" id="statTotalWords">0</div>
+          <div class="text-[10px] text-stone-400 mt-1">平均每篇約 0 字</div>
+        </div>
+        <div class="bg-white border border-[#E2DDD3] p-4 rounded-xl">
+          <div class="text-[11px] text-stone-500 font-semibold uppercase">最常調用長處</div>
+          <div class="text-base font-bold text-amber-900 mt-1 truncate" id="statTopUsedStrength">尚未記錄</div>
+          <div class="text-[10px] text-stone-400 mt-1" id="statTopUsedCount">調用 0 次</div>
+        </div>
+        <div class="bg-white border border-[#E2DDD3] p-4 rounded-xl">
+          <div class="text-[11px] text-stone-500 font-semibold uppercase">平均自我效能分</div>
+          <div class="text-2xl font-bold text-stone-900 mt-1" id="statAvgRating">--</div>
+          <div class="text-[10px] text-stone-400 mt-1">滿分為 5.0</div>
+        </div>
+      </div>
+
+      <!-- 42 天矩陣進度圖 -->
+      <div class="bg-white border border-[#E2DDD3] rounded-2xl p-5 space-y-3">
         <div class="flex items-center justify-between">
-          <div>
-            <h3 class="font-serif font-bold text-base text-ink">六週日常實踐整體進度</h3>
-            <p class="text-xs text-muted mt-0.5">目標：連續 42 天以 VIA 性格長處為導向的行為介入</p>
-          </div>
-          <div class="text-right">
-            <span class="font-mono text-2xl font-bold text-navy" id="summaryCompletedDays">0</span>
-            <span class="text-xs text-muted">/ 42 天</span>
-          </div>
+          <h3 class="font-bold text-sm text-stone-800 serif-font">六週 42 天日常打卡全景視圖</h3>
+          <span class="text-xs text-stone-500">點選任一天可直接跳轉填寫</span>
         </div>
-
-        <div class="w-full bg-[#E5DDD0] h-3 rounded-full overflow-hidden">
-          <div id="summaryProgressBar" class="bg-navy h-full rounded-full transition-all duration-500 w-0"></div>
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 text-center text-xs">
-          <div class="bg-white p-2.5 rounded-xl border border-[#E8DED4]">
-            <span class="text-muted block text-[11px]">前5項長處使用率</span>
-            <span class="font-bold text-sm text-navy mt-1 block" id="statSigRatio">0%</span>
-          </div>
-          <div class="bg-white p-2.5 rounded-xl border border-[#E8DED4]">
-            <span class="text-muted block text-[11px]">平均發揮滿意度</span>
-            <span class="font-bold text-sm text-amber-700 mt-1 block" id="statAvgRating">0.0 / 5</span>
-          </div>
-          <div class="bg-white p-2.5 rounded-xl border border-[#E8DED4]">
-            <span class="text-muted block text-[11px]">最常調用的長處</span>
-            <span class="font-bold text-xs text-ink mt-1 block truncate" id="statTopStrength">尚無資料</span>
-          </div>
-          <div class="bg-white p-2.5 rounded-xl border border-[#E8DED4]">
-            <span class="text-muted block text-[11px]">字數記錄總計</span>
-            <span class="font-bold text-sm text-ink mt-1 block" id="statTotalWords">0 字</span>
-          </div>
+        <div class="grid grid-cols-7 gap-2" id="matrixGrid42">
+          <!-- 42 個小方塊由 JS 繪製 -->
         </div>
       </div>
 
-      <!-- Strengths Frequency Chart Container -->
-      <div class="bg-[#FAF8F5] rounded-2xl border border-[#E3D9CE] p-5 custom-shadow space-y-3">
-        <h4 class="font-serif font-bold text-sm text-ink flex items-center justify-between">
-          <span>性格長處實踐頻率分佈</span>
-          <span class="text-xs text-muted font-sans font-normal">高亮顯示個人 5 大核心長處</span>
-        </h4>
-        <div id="strengthFrequencyList" class="space-y-2 pt-1 text-xs">
-          <!-- Populated by JS -->
+      <!-- 詳細清單瀏覽 -->
+      <div class="bg-white border border-[#E2DDD3] rounded-2xl p-5 space-y-4">
+        <div class="flex justify-between items-center">
+          <h3 class="font-bold text-sm text-stone-800 serif-font">已記錄篇章列表</h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-[#F8F6F0] text-stone-600 border-b border-[#EBE5DA]">
+              <tr>
+                <th class="p-2.5">天數</th>
+                <th class="p-2.5">日期</th>
+                <th class="p-2.5">調用長處</th>
+                <th class="p-2.5">情境摘要</th>
+                <th class="p-2.5">評分</th>
+                <th class="p-2.5 text-right">操作</th>
+              </tr>
+            </thead>
+            <tbody id="overviewTableBody" class="divide-y divide-[#F2EDE4]">
+              <!-- 由 JS 繪製清單 -->
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <!-- 42 Days Matrix Overview -->
-      <div class="bg-[#FAF8F5] rounded-2xl border border-[#E3D9CE] p-5 custom-shadow space-y-3">
-        <div class="flex items-center justify-between">
-          <h4 class="font-serif font-bold text-sm text-ink">42 天實踐全覽矩陣</h4>
-          <span class="text-[11px] text-muted">點擊任一天直接跳轉編輯</span>
-        </div>
-        <div id="matrixGrid" class="grid grid-cols-7 gap-1.5 sm:gap-2 text-center">
-          <!-- Populated by JS -->
-        </div>
-      </div>
+    </div>
 
-    </section>
-
-    <!-- ==================== TAB 3: 24 STRENGTHS CATALOG ==================== -->
-    <section id="view-catalog" class="hidden space-y-4">
-      <div class="bg-[#FAF8F5] rounded-2xl border border-[#E3D9CE] p-4 sm:p-5 custom-shadow flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+    <!-- TAB 3: 長處對照區 (修復並強化：支援分類、搜尋、卡片展示與一鍵填寫) -->
+    <div id="view-matrix" class="hidden space-y-6">
+      <!-- 頂部資訊與管理按鈕 -->
+      <div class="bg-white border border-[#E2DDD3] rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h3 class="font-serif font-bold text-base text-ink">VIA 24 項性格長處與 6 大美德矩陣</h3>
-          <p class="text-xs text-muted mt-0.5">Peterson & Seligman (2004) 正向心理學分類架構</p>
+          <h3 class="font-bold text-stone-900 text-base serif-font">VIA 24 項性格長處與 6 大美德矩陣</h3>
+          <p class="text-xs text-stone-500 mt-1">Peterson & Seligman (2004) 正向心理學分類架構，點選可直接應用至今日紀錄。</p>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="openSignatureModal()" class="px-3 py-1.5 bg-navy text-white text-xs rounded-lg font-medium hover:bg-navy/90 transition shadow-sm">
-            <i class="fa-solid fa-sliders mr-1"></i>設定我的 5 大標誌長處
+          <button onclick="openTopStrengthsModal()" class="px-4 py-2 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-stone-800 flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="sliders" class="w-3.5 h-3.5"></i> 設定我的 5 大標誌長處
           </button>
         </div>
       </div>
 
-      <!-- Category Filter Pills -->
-      <div class="flex flex-wrap gap-1.5" id="virtueFilterPills">
-        <button onclick="filterVirtue('all')" class="virtue-btn active px-3 py-1 rounded-full text-xs font-semibold bg-navy text-white transition">全部 (24)</button>
-        <button onclick="filterVirtue('智慧與知識')" class="virtue-btn px-3 py-1 rounded-full text-xs font-medium bg-white text-ink border border-[#DDD3C5] hover:bg-[#F2ECE3] transition">智慧與知識</button>
-        <button onclick="filterVirtue('勇氣')" class="virtue-btn px-3 py-1 rounded-full text-xs font-medium bg-white text-ink border border-[#DDD3C5] hover:bg-[#F2ECE3] transition">勇氣</button>
-        <button onclick="filterVirtue('仁愛')" class="virtue-btn px-3 py-1 rounded-full text-xs font-medium bg-white text-ink border border-[#DDD3C5] hover:bg-[#F2ECE3] transition">仁愛</button>
-        <button onclick="filterVirtue('正義')" class="virtue-btn px-3 py-1 rounded-full text-xs font-medium bg-white text-ink border border-[#DDD3C5] hover:bg-[#F2ECE3] transition">正義</button>
-        <button onclick="filterVirtue('節制')" class="virtue-btn px-3 py-1 rounded-full text-xs font-medium bg-white text-ink border border-[#DDD3C5] hover:bg-[#F2ECE3] transition">節制</button>
-        <button onclick="filterVirtue('靈性超越')" class="virtue-btn px-3 py-1 rounded-full text-xs font-medium bg-white text-ink border border-[#DDD3C5] hover:bg-[#F2ECE3] transition">靈性超越</button>
-      </div>
-
-      <!-- Catalog Cards Container -->
-      <div id="catalogGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <!-- Rendered by JS -->
-      </div>
-    </section>
-
-    <!-- ==================== TAB 4: BACKUP & EXPORT ==================== -->
-    <section id="view-backup" class="hidden space-y-5">
-      <div class="bg-[#FAF8F5] rounded-2xl border border-[#E3D9CE] p-5 custom-shadow space-y-4">
-        <div>
-          <h3 class="font-serif font-bold text-base text-ink flex items-center gap-2">
-            <i class="fa-solid fa-shield-halved text-emerald-700"></i>
-            <span>資料永續備份與匯出中心</span>
-          </h3>
-          <p class="text-xs text-muted mt-1 leading-relaxed">
-            為了解決原本同學工具無法存檔與記憶體重置遺失的痛點，本系統支援三種匯出模式，讓您的 42 天碩專研究資料隨時備份在電腦或雲端硬碟。
-          </p>
+      <!-- 分類標籤篩選與搜尋列 -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <!-- 美德標籤列 -->
+        <div class="flex gap-1.5 overflow-x-auto no-scrollbar py-1" id="virtueFilterPills">
+          <button onclick="filterStrengthsView('all')" id="vf-all" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-stone-900 text-white shadow-sm">全部 (24)</button>
+          <button onclick="filterStrengthsView('智慧與知識')" id="vf-智慧與知識" class="px-3 py-1.5 rounded-full text-xs font-medium bg-[#EAE5DA] text-stone-700 hover:bg-stone-300">智慧與知識</button>
+          <button onclick="filterStrengthsView('勇氣')" id="vf-勇氣" class="px-3 py-1.5 rounded-full text-xs font-medium bg-[#EAE5DA] text-stone-700 hover:bg-stone-300">勇氣</button>
+          <button onclick="filterStrengthsView('仁愛')" id="vf-仁愛" class="px-3 py-1.5 rounded-full text-xs font-medium bg-[#EAE5DA] text-stone-700 hover:bg-stone-300">仁愛</button>
+          <button onclick="filterStrengthsView('正義')" id="vf-正義" class="px-3 py-1.5 rounded-full text-xs font-medium bg-[#EAE5DA] text-stone-700 hover:bg-stone-300">正義</button>
+          <button onclick="filterStrengthsView('節制')" id="vf-節制" class="px-3 py-1.5 rounded-full text-xs font-medium bg-[#EAE5DA] text-stone-700 hover:bg-stone-300">節制</button>
+          <button onclick="filterStrengthsView('靈性超越')" id="vf-靈性超越" class="px-3 py-1.5 rounded-full text-xs font-medium bg-[#EAE5DA] text-stone-700 hover:bg-stone-300">靈性超越</button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-          <!-- Download JSON -->
-          <div class="bg-white p-4 rounded-xl border border-[#DDD3C5] flex flex-col justify-between space-y-3">
-            <div>
-              <div class="text-xs font-bold text-navy flex items-center gap-1.5 mb-1">
-                <i class="fa-solid fa-code text-blue-600"></i>
-                <span>完整備份檔 (.json)</span>
-              </div>
-              <p class="text-[11px] text-muted leading-relaxed">包含個人 5 大長處設定與 42 天完整文字紀錄，可隨時還原到任何手機或電腦。</p>
+        <!-- 關鍵字搜尋 -->
+        <div class="relative w-full sm:w-56">
+          <input type="text" id="strengthSearchInput" oninput="onStrengthSearch(event)" placeholder="搜尋長處名稱或範例..." class="w-full bg-white border border-[#DDD6C8] rounded-xl pl-8 pr-3 py-1.5 text-xs text-stone-800 placeholder:text-stone-400 focus:outline-none focus:border-stone-800">
+          <i data-lucide="search" class="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5"></i>
+        </div>
+      </div>
+
+      <!-- 24 項長處卡片展示網格 (已全面修復顯示) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="strengthsCardsGrid">
+        <!-- 由 JS 動態繪製卡片 -->
+      </div>
+    </div>
+
+    <!-- TAB 4: 備份與匯出區 (支援 JSON, CSV, Markdown) -->
+    <div id="view-backup" class="hidden space-y-6">
+      
+      <div class="bg-white border border-[#E2DDD3] rounded-2xl p-6 space-y-4">
+        <h3 class="font-bold text-stone-900 text-base serif-font">完整備份與還原 (研究資料不遺失)</h3>
+        <p class="text-xs text-stone-600 leading-relaxed">
+          所有記錄均即時保存在當前瀏覽器儲存區。建議每週末或研究結束時，下載備份 JSON 檔案保存；換手機、換電腦或與同學討論時，只需匯入該檔案即可完全還原！
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <!-- 下載 JSON -->
+          <div class="p-4 rounded-xl border border-stone-200 bg-[#FAF8F4] space-y-2">
+            <div class="font-semibold text-xs text-stone-800 flex items-center gap-1.5">
+              <i data-lucide="download" class="w-4 h-4 text-emerald-700"></i> 下載完整備份檔案 (.json)
             </div>
-            <button onclick="exportJSON()" class="w-full py-2 bg-navy hover:bg-navy/90 text-white rounded-lg text-xs font-semibold transition active:scale-95">
+            <p class="text-[11px] text-stone-500">包含 42 天的所有填寫資料、評分與個人設定。</p>
+            <button onclick="downloadBackupJson()" class="w-full py-2 bg-stone-900 text-white rounded-lg text-xs font-medium hover:bg-stone-800 transition-all">
               下載 JSON 備份檔
             </button>
           </div>
 
-          <!-- Download CSV -->
-          <div class="bg-white p-4 rounded-xl border border-[#DDD3C5] flex flex-col justify-between space-y-3">
-            <div>
-              <div class="text-xs font-bold text-navy flex items-center gap-1.5 mb-1">
-                <i class="fa-solid fa-file-excel text-emerald-700"></i>
-                <span>統計表格檔 (.csv)</span>
-              </div>
-              <p class="text-[11px] text-muted leading-relaxed">可用 Excel 或 Google 試算表開啟，適合統計長處分數、質性分析與學術研究圖表。</p>
+          <!-- 還原 JSON -->
+          <div class="p-4 rounded-xl border border-stone-200 bg-[#FAF8F4] space-y-2">
+            <div class="font-semibold text-xs text-stone-800 flex items-center gap-1.5">
+              <i data-lucide="upload" class="w-4 h-4 text-amber-700"></i> 還原備份資料 (.json)
             </div>
-            <button onclick="exportCSV()" class="w-full py-2 bg-emerald-800 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold transition active:scale-95">
-              下載 Excel/CSV 檔
+            <p class="text-[11px] text-stone-500">上傳先前備份的 JSON 檔案，無縫恢復所有記錄。</p>
+            <button onclick="triggerRestoreUpload()" class="w-full py-2 bg-stone-100 border border-stone-300 text-stone-800 rounded-lg text-xs font-medium hover:bg-stone-200 transition-all">
+              選擇檔案並還原
             </button>
-          </div>
-
-          <!-- Download Markdown -->
-          <div class="bg-white p-4 rounded-xl border border-[#DDD3C5] flex flex-col justify-between space-y-3">
-            <div>
-              <div class="text-xs font-bold text-navy flex items-center gap-1.5 mb-1">
-                <i class="fa-solid fa-file-lines text-amber-700"></i>
-                <span>學術報告書 (.md)</span>
-              </div>
-              <p class="text-[11px] text-muted leading-relaxed">排版工整的六週日常實踐作業報告，可直接貼入 Notion、Obsidian 或 Word 繳交作業。</p>
-            </div>
-            <button onclick="exportMarkdown()" class="w-full py-2 bg-amber-800 hover:bg-amber-700 text-white rounded-lg text-xs font-semibold transition active:scale-95">
-              下載 Markdown 報告
-            </button>
+            <input type="file" id="restoreJsonInput" accept=".json" class="hidden" onchange="handleRestoreJson(event)">
           </div>
         </div>
-
-        <!-- Restore / Import Section -->
-        <div class="pt-4 border-t border-[#E8DED4] space-y-2">
-          <h4 class="text-xs font-bold text-ink flex items-center gap-1.5">
-            <i class="fa-solid fa-cloud-arrow-down text-navy"></i>
-            <span>還原備份資料 (Import JSON)</span>
-          </h4>
-          <p class="text-[11px] text-muted">選擇您先前下載的 `.json` 備份檔，系統將自動復原所有記錄：</p>
-          <div class="flex items-center gap-2">
-            <input type="file" id="jsonFileInput" accept=".json" class="text-xs text-muted file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#EFE9DF] file:text-ink hover:file:bg-[#E5DDD0] cursor-pointer">
-            <button onclick="importJSON()" class="px-4 py-1.5 bg-[#4D4035] hover:bg-[#3D3228] text-white text-xs font-semibold rounded-lg transition active:scale-95">
-              立即載入並還原
-            </button>
-          </div>
-        </div>
-
-        <!-- Danger Zone -->
-        <div class="pt-4 border-t border-[#E8DED4] flex items-center justify-between">
-          <div>
-            <div class="text-xs font-bold text-rose-800">重置所有紀錄</div>
-            <p class="text-[11px] text-muted">清空所有 42 天內容（執行前請務必先下載備份檔）。</p>
-          </div>
-          <button onclick="resetAllData()" class="px-3 py-1.5 rounded-lg border border-rose-300 text-rose-800 hover:bg-rose-50 text-xs font-semibold transition">
-            清空紀錄
-          </button>
-        </div>
-
       </div>
-    </section>
+
+      <!-- 學術報告與分析格式匯出 -->
+      <div class="bg-white border border-[#E2DDD3] rounded-2xl p-6 space-y-4">
+        <h3 class="font-bold text-stone-900 text-base serif-font">學術研究報告匯出 (Excel & Markdown)</h3>
+        <p class="text-xs text-stone-600 leading-relaxed">
+          提供專門為碩士研究、課堂期末成果整理的專用格式，可直接放入報告附件或進行量化統計分析。
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <!-- 匯出 CSV -->
+          <div class="p-4 rounded-xl border border-stone-200 bg-[#FAF8F4] space-y-2">
+            <div class="font-semibold text-xs text-stone-800 flex items-center gap-1.5">
+              <i data-lucide="table" class="w-4 h-4 text-sky-700"></i> 匯出 Excel / CSV 表格 (.csv)
+            </div>
+            <p class="text-[11px] text-stone-500">含完整 UTF-8 BOM，Excel 打開不亂碼。欄位分明方便統計長處調用頻率。</p>
+            <button onclick="downloadCsv()" class="w-full py-2 bg-[#E2ECE9] hover:bg-[#D5E4E0] text-emerald-950 rounded-lg text-xs font-semibold border border-emerald-300 transition-all">
+              匯出 CSV 表格
+            </button>
+          </div>
+
+          <!-- 匯出 Markdown -->
+          <div class="p-4 rounded-xl border border-stone-200 bg-[#FAF8F4] space-y-2">
+            <div class="font-semibold text-xs text-stone-800 flex items-center gap-1.5">
+              <i data-lucide="file-text" class="w-4 h-4 text-purple-700"></i> 匯出完整研究成果報告 (.md)
+            </div>
+            <p class="text-[11px] text-stone-500">排版優美之 Markdown 格式，可直接匯入 Notion、Obsidian 或轉為 Word 提交。</p>
+            <button onclick="downloadMarkdown()" class="w-full py-2 bg-[#EFE8F5] hover:bg-[#E5DAF0] text-purple-950 rounded-lg text-xs font-semibold border border-purple-300 transition-all">
+              匯出 Markdown 報告書
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
 
   </main>
 
-  <!-- ==================== MODAL 1: PDF REPORT PARSER ==================== -->
-  <div id="pdfModal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-    <div class="bg-[#FAF8F5] border border-[#DDD3C5] rounded-2xl max-w-lg w-full p-6 custom-shadow space-y-4 relative">
-      <div class="flex items-center justify-between border-b border-[#E8DED4] pb-3">
-        <h3 class="font-serif font-bold text-base text-ink flex items-center gap-2">
-          <i class="fa-solid fa-file-pdf text-rose-700"></i>
-          <span>匯入 VIA 性格調查測驗結果</span>
+  <!-- 頁腳版權與宣告 -->
+  <footer class="text-center py-6 text-xs text-stone-500 border-t border-[#E5DFD4] mt-8">
+    性格長處日常實踐工作台 ・ 植基於正向心理學 VIA 實踐架構
+  </footer>
+
+  <!-- 彈跳對話框 1：設定個人 Top 5 長處 (已徹底修復按儲存自動關閉) -->
+  <div id="topStrengthsModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-stone-300 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-xl">
+      <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+        <h3 class="font-bold text-stone-900 text-base serif-font flex items-center gap-1.5">
+          <i data-lucide="award" class="w-4 h-4 text-amber-700"></i> 設定個人前 5 項標誌長處
         </h3>
-        <button onclick="closePdfModal()" class="text-muted hover:text-ink text-sm">
-          <i class="fa-solid fa-xmark"></i>
+        <button onclick="closeTopStrengthsModal()" class="text-stone-400 hover:text-stone-700 p-1">
+          <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
 
-      <p class="text-xs text-muted leading-relaxed">
-        可直接上傳您在 VIA Institute on Character 下載的測驗結果 PDF，程式將自動掃描內文並辨識您的<strong>前 5 項標誌長處 (Top 5 Signature Strengths)</strong>；亦可手動在下方貼上文字進行辨識。
+      <p class="text-xs text-stone-500">
+        請指定您的 Top 5 標誌長處，日常記錄選單將優先排序這 5 項：
       </p>
 
-      <!-- PDF File Upload Zone -->
-      <div class="border-2 border-dashed border-[#DDD3C5] hover:border-navy rounded-xl p-5 text-center bg-white cursor-pointer transition" onclick="document.getElementById('pdfUploadInput').click()">
-        <input type="file" id="pdfUploadInput" accept=".pdf" class="hidden" onchange="handlePdfUpload(event)">
-        <i class="fa-solid fa-cloud-arrow-up text-3xl text-navy/40 mb-2"></i>
-        <div class="text-xs font-semibold text-ink">點擊選擇 VIA 報告 PDF 檔案</div>
-        <div class="text-[10px] text-muted mt-0.5">支援繁中與英文 VIA Reports</div>
+      <div class="space-y-3" id="top5SelectContainer">
+        <!-- 5 個下拉選單由 JS 自動填入 -->
       </div>
 
-      <div class="relative flex py-1 items-center">
-        <div class="flex-grow border-t border-[#E3D9CE]"></div>
-        <span class="flex-shrink mx-2 text-[10px] text-muted">或直接手動貼上報告文字</span>
-        <div class="flex-grow border-t border-[#E3D9CE]"></div>
-      </div>
-
-      <textarea id="manualPdfText" rows="3" placeholder="貼上文字，例如：1. 好奇心 2. 判斷力 3. 仁慈 4. 幽默感 5. 感恩..." class="w-full text-xs p-2.5 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy"></textarea>
-
-      <div class="flex justify-end gap-2 pt-2">
-        <button onclick="parsePastedText()" class="px-3.5 py-1.5 bg-[#4D4035] hover:bg-[#3D3228] text-white rounded-lg text-xs font-semibold transition">
-          從文字解析前5大長處
+      <div class="pt-3 border-t border-stone-100 flex justify-end gap-2">
+        <button onclick="closeTopStrengthsModal()" class="px-4 py-2 border border-stone-300 text-stone-700 rounded-xl text-xs font-medium hover:bg-stone-50">
+          取消
         </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== MODAL 2: SIGNATURE STRENGTHS MANUAL SELECTOR ==================== -->
-  <div id="signatureModal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-    <div class="bg-[#FAF8F5] border border-[#DDD3C5] rounded-2xl max-w-md w-full p-6 custom-shadow space-y-4 relative">
-      <div class="flex items-center justify-between border-b border-[#E8DED4] pb-3">
-        <h3 class="font-serif font-bold text-base text-ink flex items-center gap-2">
-          <i class="fa-solid fa-award text-amber-700"></i>
-          <span>設定個人前 5 項標誌長處</span>
-        </h3>
-        <button onclick="closeSignatureModal()" class="text-muted hover:text-ink text-sm">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <p class="text-xs text-muted">請指定您的 Top 5 標誌長處，日常記錄選單將優先排序這 5 項：</p>
-
-      <div class="space-y-2.5" id="sigSelectorsContainer">
-        <!-- 5 select elements injected by JS -->
-      </div>
-
-      <div class="flex justify-end gap-2 pt-3 border-t border-[#E8DED4]">
-        <button onclick="saveSignatureStrengths()" class="px-4 py-2 bg-navy hover:bg-navy/90 text-white rounded-lg text-xs font-semibold transition active:scale-95">
+        <button onclick="saveTopStrengths()" class="px-5 py-2 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-stone-800 shadow-sm">
           確認儲存設定
         </button>
       </div>
     </div>
   </div>
 
+  <!-- 輕量 Toast 提示框 -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-10 opacity-0 transition-all duration-300 bg-stone-900 text-white text-xs px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toastMessage">已儲存</span>
+  </div>
+
+  <!-- 應用程式核心邏輯腳本 -->
   <script>
-    // 24 VIA Character Strengths Database (Peterson & Seligman, 2004)
-    const VIA_CATALOG = [
-      // 1. 智慧與知識 Wisdom
-      { id: "curiosity", name: "好奇心", en: "Curiosity", virtue: "智慧與知識", desc: "對新事物、新經驗保持開放與探索興趣，主動發問與鑽研。", example: "遇到陌生的學術名詞主動查詢並與生活經驗連結。" },
-      { id: "judgment", name: "判斷力 / 批判思考", en: "Judgment", virtue: "智慧與知識", desc: "從各個角度審視事物，客觀評估證據，不輕易妄下定論。", example: "在分歧討論中冷靜分析各方論點的依據與盲點。" },
-      { id: "love_of_learning", name: "喜愛學習", en: "Love of Learning", virtue: "智慧與知識", desc: "熱衷於掌握新技能與知識體系，享受學習本身的歷程。", example: "利用通勤時間深入閱讀專長以外的心理學典籍。" },
-      { id: "perspective", name: "洞察力 / 宏觀大局", en: "Perspective", virtue: "智慧與知識", desc: "具備向他人提供明智建議的能力，能宏觀理解人生處境。", example: "在同儕陷入焦慮時，引導其看見長期演進的價值。" },
-      { id: "creativity", name: "創造力", en: "Creativity", virtue: "智慧與知識", desc: "能以新穎且有價值的方式構思方案或解決問題。", example: "跳脫標準格式，用視覺圖像圖解複雜概念。" },
+    // 1. VIA 完整 24 項性格長處資料庫 (涵蓋六大美德、定義、中英對照與例句)
+    const VIA_DATABASE = [
+      // 智慧與知識 (Wisdom & Knowledge)
+      { id: 'creativity', name: '創造力 (Creativity)', en: 'Creativity', virtue: '智慧與知識', desc: '能想出新穎且有建設性的點子與方法解決問題。', example: '用非傳統的方式重新安排專案時程或地方活動流程。' },
+      { id: 'curiosity', name: '好奇心 (Curiosity)', en: 'Curiosity', virtue: '智慧與知識', desc: '對新事物、新經驗保持開放與探索的熱情。', example: '遇到不熟悉的理論或陌生長輩，主動提問「背後有什麼故事？」。' },
+      { id: 'judgment', name: '判斷力 / 批判性思維 (Judgment)', en: 'Judgment', virtue: '智慧與知識', desc: '多角度檢視證據，不妄下定論，保持客觀理性。', example: '面對爭議性發言時，先辨識事實與情緒，不急著附和。' },
+      { id: 'love-of-learning', name: '喜愛學習 (Love of Learning)', en: 'Love of Learning', virtue: '智慧與知識', desc: '主動吸收新技能、新知識，並從學習歷程本身獲得喜悅。', example: '為了更深入理解場域，主動閱讀地方志或鑽研新軟體功能。' },
+      { id: 'perspective', name: '遠見 / 智慧 (Perspective)', en: 'Perspective', virtue: '智慧與知識', desc: '能站在宏觀視角看待事物，並能為他人提供明智中肯的建議。', example: '在團隊陷入瑣碎爭執時，提醒大家最初的核心願景與長期目標。' },
 
-      // 2. 勇氣 Courage
-      { id: "bravery", name: "勇敢", en: "Bravery", virtue: "勇氣", desc: "即使面對威脅、挑戰、痛苦或道德壓力，依然挺身而出行動。", example: "在團隊會議中勇敢提出不同觀點，承擔被質疑的風險。" },
-      { id: "perseverance", name: "毅力 / 堅持不懈", en: "Perseverance", virtue: "勇氣", desc: "有始有終，克服困難完成目標，在挫折中維持動能。", example: "在實驗數據不如預期時，重新微調變項並堅持完成驗證。" },
-      { id: "honesty", name: "誠實 / 真誠", en: "Honesty", virtue: "勇氣", desc: "以真實態度待人，對自己的感受與行為負起真實責任。", example: "坦承自己目前的知識邊界，不假裝懂不懂的事。" },
-      { id: "zest", name: "熱情 / 活力", en: "Zest", virtue: "勇氣", desc: "充滿生命活力，全心投入當下生活，不消極敷衍。", example: "以充沛飽滿的能量開啟小組討論，感染身邊夥伴。" },
+      // 勇氣 (Courage)
+      { id: 'bravery', name: '勇敢 (Bravery)', en: 'Bravery', virtue: '勇氣', desc: '面對威脅、挑戰、困難或痛苦時不退縮，敢於為對的事挺身而出。', example: '在會議中主動提出雖然逆耳但關鍵的真實問題。' },
+      { id: 'perseverance', name: '毅力 / 堅持不懈 (Perseverance)', en: 'Perseverance', virtue: '勇氣', desc: '把事情做完做好，即便面臨障礙仍持之以恆。', example: '即使活動當天下大雨或遭遇突發變數，依然沉著應對並完成任務。' },
+      { id: 'honesty', name: '誠實 / 真誠 (Honesty)', en: 'Honesty', virtue: '勇氣', desc: '言行一致，真誠展現自我，不欺騙他人與自己。', example: '坦然向團隊承認自己目前遇到的困難與知識盲區。' },
+      { id: 'zest', name: '熱情 / 活力 (Zest)', en: 'Zest', virtue: '勇氣', desc: '帶著活力與全心投入的能量生活，不半途而廢、不虛應故事。', example: '以飽滿的朝氣主持早會，帶動全場夥伴的參與動力。' },
 
-      // 3. 仁愛 Humanity
-      { id: "love", name: "愛與被愛", en: "Love", virtue: "仁愛", desc: "重視親密關係，珍惜與他人深層且真摯的連結與關懷。", example: "主動關心同學近期的身心狀況，給予專注的傾聽。" },
-      { id: "kindness", name: "仁慈 / 慷慨", en: "Kindness", virtue: "仁愛", desc: "主動幫助他人、照顧他人，不求直接回報。", example: "為忙碌的研究夥伴準備一份溫熱的茶飲並分擔雜務。" },
-      { id: "social_intelligence", name: "社交智慧", en: "Social Intelligence", virtue: "仁愛", desc: "理解他人與自己的動機及情緒，敏銳察覺社交情境需求。", example: "在緊張氣氛中察覺對方的防衛心理，適時給予台階與溫和引導。" },
+      // 仁愛 (Humanity)
+      { id: 'love', name: '愛與被愛 (Love)', en: 'Love', virtue: '仁愛', desc: '珍視與他人的親密連結，關心所愛之人並願意接受他人的關懷。', example: '在同學疲憊時主動遞上一杯熱茶，真摯關心對方近況。' },
+      { id: 'kindness', name: '善良 / 仁慈 (Kindness)', en: 'Kindness', virtue: '仁愛', desc: '主動為他人著想，樂於助人而不求立即回報。', example: '主動協助行動不便的長輩搬運器材或指引路線。' },
+      { id: 'social-intelligence', name: '社交智慧 (Social Intelligence)', en: 'Social Intelligence', virtue: '仁愛', desc: '敏銳感知他人情緒、動機與現場氣氛，並懂得如何適切回應。', example: '察覺到某位發言者有些緊張，刻意微笑點頭給予安全感。' },
 
-      // 4. 正義 Justice
-      { id: "teamwork", name: "團隊精神 / 忠誠", en: "Teamwork", virtue: "正義", desc: "善於作為團隊成員協作，為群體共同目標貢獻心力。", example: "在專題報告中積極補位，協調大家發揮各自擅長部分。" },
-      { id: "fairness", name: "公平", en: "Fairness", virtue: "正義", desc: "不因偏見對待他人，給予每個人平等的機會與尊重。", example: "在分工分配上確保每位組員的聲音與負擔均得到客觀衡量。" },
-      { id: "leadership", name: "領導力", en: "Leadership", virtue: "正義", desc: "激勵群體朝著正向目標前進，並維持團隊和諧氛圍。", example: "在混沌的討論中重新梳理綱要，帶領團隊確立下階段行動。" },
+      // 正義 (Justice)
+      { id: 'teamwork', name: '團隊合作 / 公民精神 (Teamwork)', en: 'Teamwork', virtue: '正義', desc: '忠於所屬群體，作為負責任的成員與大家協同合作。', example: '不搶個人功勞，默默承擔起場地復原等後勤支援工作。' },
+      { id: 'fairness', name: '公平 (Fairness)', en: 'Fairness', virtue: '正義', desc: '以同等標準對待所有人，不因偏見或個人好惡而有所差別。', example: '在小組討論中確保每位內向的組員都有平等的發言時間。' },
+      { id: 'leadership', name: '領導力 (Leadership)', en: 'Leadership', virtue: '正義', desc: '激勵群體朝向共同目標前進，並維持團隊內部和諧關係。', example: '清楚分工並鼓舞士氣，讓不同專長的成員都能發揮所長。' },
 
-      // 5. 節制 Temperance
-      { id: "forgiveness", name: "寬恕", en: "Forgiveness", virtue: "節制", desc: "原諒犯錯的人，放下怨恨與報復心，給人重新開始的機會。", example: "對於組員的延誤交件選擇同理與協助，而非責備與怨懣。" },
-      { id: "humility", name: "謙遜", en: "Humility", virtue: "節制", desc: "讓成就自己說話，不自我吹噓，客觀看待自身限制。", example: "在獲得稱讚時真誠歸功於團隊協作與前人智慧。" },
-      { id: "prudence", name: "審慎", en: "Prudence", virtue: "節制", desc: "行事謹慎，權衡長遠後果，避免衝動行事或冒無謂風險。", example: "在簽署合作前仔細複核權利義務細節，顧及長期影響。" },
-      { id: "self_regulation", name: "自我調節", en: "Self-Regulation", virtue: "節制", desc: "自律掌控自己的情緒與慾望，維持專注與紀律。", example: "在工作前收起手機社群通知，維持 50 分鐘深度工作心流。" },
+      // 節制 (Temperance)
+      { id: 'forgiveness', name: '寬恕 / 慈悲 (Forgiveness)', en: 'Forgiveness', virtue: '節制', desc: '寬恕冒犯自己的人，不懷恨在心，給他人改過機會。', example: '組員工作發生延誤時，不苛責而是與之一同補救。' },
+      { id: 'humility', name: '謙遜 (Humility)', en: 'Humility', virtue: '節制', desc: '讓自己的成就自然呈現，不自吹自擂，不追求虛華光環。', example: '在被表揚時，將成功歸功於在地夥伴與全體團隊的共同努力。' },
+      { id: 'prudence', name: '審慎 (Prudence)', en: 'Prudence', virtue: '節制', desc: '行事謹慎，思前想後，不做讓自己日後後悔的魯莽決定。', example: '在簽署合作協議或公開發表前，反覆核對細節與潛在風險。' },
+      { id: 'self-regulation', name: '自我調節 / 自律 (Self-Regulation)', en: 'Self-Regulation', virtue: '節制', desc: '能管理好自己的情緒、慾望與行為，持守紀律。', example: '在想滑手機或懈怠時，專注完成當前設定的半小時寫作目標。' },
 
-      // 6. 靈性超越 Transcendence
-      { id: "appreciation_of_beauty", name: "對美與卓越的欣賞", en: "Appreciation of Beauty", virtue: "靈性超越", desc: "在自然、藝術與日常細節中察覺美好，心懷敬畏感。", example: "在校園漫步時停下腳步欣賞夕陽光影，感受平靜的力量。" },
-      { id: "gratitude", name: "感恩", en: "Gratitude", virtue: "靈性超越", desc: "覺察並感謝生活中的善意與恩典，表達由衷謝意。", example: "在睡前手寫三個今天值得感激的小確幸或身邊人的善舉。" },
-      { id: "hope", name: "希望 / 樂觀", en: "Hope", virtue: "靈性超越", desc: "對未來抱持正向期待，相信透過努力能促成改變。", example: "面對研究瓶頸時，主動盤點現有可用資源，制定轉機策略。" },
-      { id: "humor", name: "幽默感", en: "Humor", virtue: "靈性超越", desc: "喜歡帶來歡笑，看見事物輕鬆有趣的一面，化解沈重感。", example: "以幽默自嘲的方式化解報告前的緊張焦慮氣氛。" },
-      { id: "spirituality", name: "靈性 / 使命感", en: "Spirituality", virtue: "靈性超越", desc: "對生命的目的有深層信念，連結超越個人的崇高價值。", example: "反思自己的研究如何能為社會弱勢或教育現場帶來溫暖改變。" }
+      // 靈性超越 (Transcendence)
+      { id: 'appreciation-of-beauty', name: '審美與卓越欣賞 (Appreciation of Beauty)', en: 'Appreciation of Beauty', virtue: '靈性超越', desc: '能敏銳察覺並欣賞自然、藝術與日常生活中的美與卓越。', example: '在走入村落的清晨，為一片稻浪與晨光駐足感動。' },
+      { id: 'gratitude', name: '感恩 (Gratitude)', en: 'Gratitude', virtue: '靈性超越', desc: '覺察身邊的好事並心存感激，總是主動表達謝意。', example: '在便箋上寫下對志工夥伴今天貼心舉動的誠摯謝詞。' },
+      { id: 'hope', name: '希望 / 樂觀 (Hope)', en: 'Hope', virtue: '靈性超越', desc: '對未來抱持正向期待，並相信透過努力可以實現目標。', example: '在專案陷入停滯時，依然鼓舞大家找出下一個轉機。' },
+      { id: 'humor', name: '幽默 (Humor)', en: 'Humor', virtue: '靈性超越', desc: '喜歡微笑與帶來歡笑，能看見事物輕鬆有趣的一面。', example: '用一句無傷大雅的幽默自嘲化解會場尷尬的冷場。' },
+      { id: 'spirituality', name: '靈性 / 意義感 (Spirituality)', en: 'Spirituality', virtue: '靈性超越', desc: '對生命的高層目的與宇宙關聯抱持信念，知道自己為何而存在。', example: '把日常瑣碎的工作連結到為土地帶來長遠美好的神聖使命。' }
     ];
 
-    // Six Weeks Curriculum Definition
-    const WEEKS_INFO = {
-      1: { name: "Aware", title: "Aware｜我有哪些長處？", stage: "辨識標誌長處", desc: "辨識前 5 項 signature strengths，在生活中觀察它們自然浮現的時刻，建立自我長處敏感度。" },
-      2: { name: "Explore", title: "Explore｜長處如何展現？", stage: "觀察脈絡特徵", desc: "探索長處在不同情境（人際、工作、逆境）下的觸發時機與運作模式。" },
-      3: { name: "Apply", title: "Apply｜主動在日常發揮", stage: "日常行為介入", desc: "有意識地將核心長處應用於設定的日常任務中，觀察自身的情緒反饋。" },
-      4: { name: "New ways", title: "New ways｜以新途徑發揮長處", stage: "跨域新維度運用", desc: "嘗試在從未使用過的情境中運用該長處，打破慣性思維，拓寬長處光譜。" },
-      5: { name: "Challenge", title: "Challenge｜在困難中運用長處", stage: "逆境韌性調適", desc: "當遇到挫折、焦慮或衝突時，主動調動長處作為解方與心理緩衝。" },
-      6: { name: "Flexible use", title: "Flexible use｜靈活調度與長處協奏", stage: "綜合靈活整合", desc: "不再單兵作戰，學會協同調配多項長處，讓性格長處成為自然的生活哲學。" }
+    // 2. 六週階段導引指引資料
+    const WEEKS_METADATA = {
+      1: {
+        theme: 'Aware',
+        title: 'Aware ｜ 我有哪些長處？',
+        subtitle: '辨識前 5 項 signature strengths，觀察它在今天哪個微小瞬間自然浮現。',
+        reflectionSub: '優勢使用模式 / 情境適切性 / 彈性因應',
+        d1: '優勢使用模式',
+        d2: '情境適切性',
+        d3: '彈性因應'
+      },
+      2: {
+        theme: 'Explore',
+        title: 'Explore ｜ 探索我的長處展現脈絡',
+        subtitle: '細察長處在人際、工作或獨處時的不同樣態，發掘未曾察覺的盲點或過度使用。',
+        reflectionSub: '展現脈絡 / 過度與不足 / 心理能量回饋',
+        d1: '展現脈絡探索',
+        d2: '過度或不足檢視',
+        d3: '能量與心流體察'
+      },
+      3: {
+        theme: 'Apply',
+        title: 'Apply ｜ 主動將長處應用於重要目標',
+        subtitle: '不再只是被動反應，而是帶著意圖主動將長處投入課業、研究或場域解題。',
+        reflectionSub: '目標對齊 / 障礙突破 / 實質效能',
+        d1: '意圖性目標對齊',
+        d2: '障礙突破槓桿',
+        d3: '成效與價值沉澱'
+      },
+      4: {
+        theme: 'New ways',
+        title: 'New ways ｜ 以全新方式運用指標長處',
+        subtitle: '為熟悉的長處打破常規習慣，在全新情境或跨域面向嘗試不同的表現手法。',
+        reflectionSub: '非慣性嘗試 / 跨情境遷移 / 創意組合',
+        d1: '非常規表現手法',
+        d2: '跨域遷移體驗',
+        d3: '長處組合撞擊'
+      },
+      5: {
+        theme: 'Challenge',
+        title: 'Challenge ｜ 用長處迎戰真實逆境與挫折',
+        subtitle: '在疲憊、壓力、衝突或田野碰撞時，以優勢思維作為心理緩衝與韌性支撐。',
+        reflectionSub: '逆境因應 / 認知重塑 / 心理韌性增長',
+        d1: '抗逆心理緩衝',
+        d2: '挫折認知重塑',
+        d3: '情緒調節與賦能'
+      },
+      6: {
+        theme: 'Flexible use',
+        title: 'Flexible use ｜ 靈活調度與複音協奏',
+        subtitle: '如同一位成熟的指揮家，根據情境需要敏捷調配不同長處，達到身心平衡。',
+        reflectionSub: '長處動態平衡 / 黃金中道 (Golden Mean) / 永續實踐承諾',
+        d1: '動態協奏與平衡',
+        d2: '實踐黃金中道',
+        d3: '長期深化承諾'
+      }
     };
 
-    // Application State Object
-    let appState = {
-      activeWeek: 1,
-      activeDay: 1, // 1 ~ 42
-      activeMainTab: 'daily',
-      activeVirtueFilter: 'all',
-      // Top 5 Signature Strengths (Default: Curiosity, Judgment, Kindness, Humor, Gratitude)
-      signatureStrengths: ["curiosity", "judgment", "kindness", "humor", "gratitude"],
-      // 42 Days Records keyed by day index: { 1: { date, strengthId, context, action, result, reflection, rating, completed, directions: [] } }
-      records: {}
-    };
+    // 3. 全域狀態管理 (LocalStorage 驅動)
+    let currentDayNumber = 1;
+    let currentWeekNumber = 1;
+    let selectedVirtueFilter = 'all';
 
-    const STORAGE_KEY = 'via_char_practice_v1';
+    // 預設使用者前 5 大長處 (若尚未設定)
+    let userTop5Ids = JSON.parse(localStorage.getItem('via_user_top5')) || [
+      'curiosity', 'creativity', 'honesty', 'gratitude', 'perseverance'
+    ];
 
-    function initData() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          if (parsed.signatureStrengths && Array.isArray(parsed.signatureStrengths)) {
-            appState.signatureStrengths = parsed.signatureStrengths;
-          }
-          if (parsed.records) {
-            appState.records = parsed.records;
-          }
-          if (parsed.activeDay) {
-            appState.activeDay = parsed.activeDay;
-            appState.activeWeek = Math.ceil(parsed.activeDay / 7);
-          }
-        } catch (e) {
-          console.error("Local data parse error", e);
+    // 42 天完整日常資料儲存庫
+    let dailyRecords = JSON.parse(localStorage.getItem('via_daily_records')) || {};
+
+    // 初始化程式
+    window.addEventListener('DOMContentLoaded', () => {
+      // 確保 1~42 天資料結構完整
+      for (let i = 1; i <= 42; i++) {
+        if (!dailyRecords[i]) {
+          dailyRecords[i] = {
+            day: i,
+            week: Math.ceil(i / 7),
+            date: '',
+            strengthId: userTop5Ids[0] || 'curiosity',
+            situation: '',
+            action: '',
+            result: '',
+            reflection: '',
+            rating: 0
+          };
         }
-      } else {
-        // Preload default day 1 with sample prompt
-        appState.records[1] = {
-          date: new Date().toLocaleDateString('zh-TW', { month: 'numeric', day: 'numeric' }),
-          strengthId: "curiosity",
-          context: "同學用 Claude 做了一個性格長處的日常實踐表，感覺很厲害",
-          action: "我也很想用 Claude 來做一些東西，但現在工具太多了，Claude 我還沒摸熟",
-          result: "能做的東西有限，我還是比較擅長用 ChatGPT 跟 Gemini",
-          reflection: "",
-          rating: 4,
-          completed: true,
-          directions: []
-        };
-        saveToLocalStorage();
       }
-      updateUI();
-    }
 
-    function saveToLocalStorage() {
-      const dataToSave = {
-        signatureStrengths: appState.signatureStrengths,
-        records: appState.records,
-        activeDay: appState.activeDay,
-        lastUpdated: new Date().toISOString()
-      };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
-      
-      const indicator = document.getElementById('lastSavedIndicator');
-      if (indicator) {
-        indicator.innerHTML = `<i class="fa-solid fa-check text-emerald-600"></i><span>已於 ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})} 存檔</span>`;
-      }
-      updateOverallProgressBadge();
-    }
+      renderWeekNavPills();
+      renderDayPillContainer();
+      loadDayData(1);
+      updateTotalProgressStats();
+      renderMatrix42Grid();
+      renderAllStrengthCards();
+      lucide.createIcons();
+    });
 
-    function updateUI() {
-      renderWeekButtons();
-      renderWeekGuide();
-      renderDayTabs();
-      populateStrengthSelect();
-      loadDayRecord(appState.activeDay);
-      updateOverallProgressBadge();
-      renderSummaryView();
-      renderCatalogView();
-    }
-
-    function switchMainTab(tabName) {
-      appState.activeMainTab = tabName;
-      ['daily', 'summary', 'catalog', 'backup'].forEach(t => {
-        const view = document.getElementById(`view-${t}`);
-        const btn = document.getElementById(`tabBtn-${t}`);
-        if (t === tabName) {
-          view.classList.remove('hidden');
-          btn.className = "py-3 px-3 sm:px-4 text-xs sm:text-sm font-semibold border-b-2 border-navy text-navy flex items-center gap-1.5 transition";
+    // ==========================================
+    // TAB 與視圖切換
+    // ==========================================
+    function switchMainTab(tabKey) {
+      const views = ['daily', 'overview', 'matrix', 'backup'];
+      views.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        const btn = document.getElementById(`tab-btn-${v}`);
+        if (v === tabKey) {
+          el.classList.remove('hidden');
+          btn.className = 'tab-active flex items-center gap-2 px-4 py-2 rounded-lg text-stone-700 transition-all font-medium';
         } else {
-          view.classList.add('hidden');
-          btn.className = "py-3 px-3 sm:px-4 text-xs sm:text-sm font-medium border-b-2 border-transparent text-muted hover:text-ink flex items-center gap-1.5 transition";
+          el.classList.add('hidden');
+          btn.className = 'flex items-center gap-2 px-4 py-2 rounded-lg text-stone-700 hover:bg-[#DDD7CB] transition-all font-medium';
         }
       });
-      if (tabName === 'summary') renderSummaryView();
+
+      if (tabKey === 'overview') {
+        renderOverviewTable();
+        renderMatrix42Grid();
+        updateTotalProgressStats();
+      } else if (tabKey === 'matrix') {
+        renderAllStrengthCards();
+      }
+      lucide.createIcons();
     }
 
-    function selectWeek(w) {
-      appState.activeWeek = w;
-      // Default to first day of that week
-      appState.activeDay = (w - 1) * 7 + 1;
-      updateUI();
-    }
-
-    function renderWeekButtons() {
+    // ==========================================
+    // 每日記錄與週數切換邏輯
+    // ==========================================
+    function selectWeek(wk) {
+      currentWeekNumber = wk;
       for (let w = 1; w <= 6; w++) {
-        const btn = document.getElementById(`weekBtn-${w}`);
-        const badge = document.getElementById(`weekBadge-${w}`);
-        
-        let completedInWeek = 0;
-        for (let d = (w - 1) * 7 + 1; d <= w * 7; d++) {
-          if (appState.records[d] && appState.records[d].completed) completedInWeek++;
-        }
-        badge.textContent = `${completedInWeek}/7`;
-
-        if (w === appState.activeWeek) {
-          btn.className = "p-2 sm:p-2.5 rounded-xl text-center border transition-all bg-navy text-white border-navy custom-shadow";
-          badge.className = "text-[10px] font-mono mt-0.5 opacity-80 text-amber-200";
-        } else {
-          btn.className = "p-2 sm:p-2.5 rounded-xl text-center border transition-all bg-[#FAF8F5] text-ink border-[#DDD3C5] hover:bg-[#F2ECE3]";
-          badge.className = "text-[10px] font-mono mt-0.5 text-muted";
+        const btn = document.getElementById(`week-nav-w${w}`) || document.getElementById(`week-nav-${w}`);
+        if (btn) {
+          if (w === wk) {
+            btn.className = 'week-btn-active bg-[#1E293B] text-white border-[#1E293B] p-2.5 rounded-xl text-left transition-all';
+          } else {
+            btn.className = 'bg-[#EBE6DC] border border-[#DDD6C8] p-2.5 rounded-xl text-left hover:border-stone-500 transition-all text-stone-800';
+          }
         }
       }
+
+      // 更新週指引文字
+      const meta = WEEKS_METADATA[wk];
+      document.getElementById('currentWeekTitle').textContent = meta.title;
+      document.getElementById('currentWeekSub').textContent = meta.subtitle;
+      document.getElementById('reflectionThemeSubtitle').textContent = `：${meta.reflectionSub}`;
+
+      // 預設跳至該週第一天
+      const firstDayOfWeek = (wk - 1) * 7 + 1;
+      loadDayData(firstDayOfWeek);
+      renderDayPillContainer();
     }
 
-    function renderWeekGuide() {
-      const info = WEEKS_INFO[appState.activeWeek];
-      document.getElementById('weekThemeTitle').textContent = info.title;
-      document.getElementById('weekStagePill').textContent = info.stage;
-      document.getElementById('weekThemeDesc').textContent = info.desc;
-    }
-
-    function renderDayTabs() {
-      const container = document.getElementById('dayTabsContainer');
+    function renderDayPillContainer() {
+      const container = document.getElementById('dayPillContainer');
       container.innerHTML = '';
-      const startDay = (appState.activeWeek - 1) * 7 + 1;
-      const endDay = appState.activeWeek * 7;
+      const startDay = (currentWeekNumber - 1) * 7 + 1;
 
-      for (let d = startDay; d <= endDay; d++) {
-        const rec = appState.records[d];
-        const isCompleted = rec && rec.completed;
-        const isActive = (d === appState.activeDay);
-        
+      for (let d = startDay; d < startDay + 7; d++) {
         const btn = document.createElement('button');
-        btn.onclick = () => {
-          saveCurrentDayForm();
-          appState.activeDay = d;
-          renderDayTabs();
-          loadDayRecord(d);
-        };
+        const isFilled = isRecordFilled(d);
+        const isActive = d === currentDayNumber;
 
-        let strengthSnippet = "尚未填寫";
-        if (rec && rec.strengthId) {
-          const stObj = VIA_CATALOG.find(x => x.id === rec.strengthId);
-          if (stObj) strengthSnippet = stObj.name;
-        }
-
+        let btnClass = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 flex items-center gap-1 ';
         if (isActive) {
-          btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold shrink-0 bg-navy text-white border border-navy flex items-center gap-1.5 shadow-sm";
-        } else if (isCompleted) {
-          btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium shrink-0 bg-white text-ink border border-emerald-300 hover:bg-[#F7F3EE] flex items-center gap-1.5";
+          btnClass += 'bg-stone-900 text-white shadow-sm';
+        } else if (isFilled) {
+          btnClass += 'bg-[#DDE5DC] text-emerald-900 border border-emerald-300';
         } else {
-          btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium shrink-0 bg-[#EFE9DF] text-muted border border-[#DDD3C5] hover:bg-white flex items-center gap-1.5";
+          btnClass += 'bg-[#FAF8F4] text-stone-700 border border-stone-200 hover:bg-stone-100';
         }
 
-        btn.innerHTML = `
-          <span>Day ${d}</span>
-          ${isCompleted ? '<i class="fa-solid fa-circle-check text-[10px] text-emerald-400"></i>' : ''}
-        `;
+        btn.className = btnClass;
+        btn.innerHTML = `<span>D${d}</span>` + (isFilled ? `<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>` : '');
+        btn.onclick = () => loadDayData(d);
         container.appendChild(btn);
       }
     }
 
-    // Populate Strength dropdown: Top 5 signature first, then divider, then remaining 19
-    function populateStrengthSelect() {
+    function isRecordFilled(d) {
+      const r = dailyRecords[d];
+      if (!r) return false;
+      return (r.situation && r.situation.trim().length > 0) ||
+             (r.action && r.action.trim().length > 0) ||
+             (r.result && r.result.trim().length > 0) ||
+             (r.reflection && r.reflection.trim().length > 0);
+    }
+
+    function loadDayData(dayNum) {
+      currentDayNumber = dayNum;
+      currentWeekNumber = Math.ceil(dayNum / 7);
+
+      // 同步週數導航外觀
+      for (let w = 1; w <= 6; w++) {
+        const btn = document.getElementById(`week-nav-${w}`);
+        if (btn) {
+          if (w === currentWeekNumber) {
+            btn.className = 'week-btn-active bg-[#1E293B] text-white border-[#1E293B] p-2.5 rounded-xl text-left transition-all';
+          } else {
+            btn.className = 'bg-[#EBE6DC] border border-[#DDD6C8] p-2.5 rounded-xl text-left hover:border-stone-500 transition-all text-stone-800';
+          }
+        }
+      }
+
+      // 同步當週資訊
+      const meta = WEEKS_METADATA[currentWeekNumber];
+      document.getElementById('currentWeekTitle').textContent = meta.title;
+      document.getElementById('currentWeekSub').textContent = meta.subtitle;
+      document.getElementById('reflectionThemeSubtitle').textContent = `：${meta.reflectionSub}`;
+
+      // 載入當天記錄物件
+      const record = dailyRecords[dayNum] || {
+        day: dayNum,
+        week: currentWeekNumber,
+        date: '',
+        strengthId: userTop5Ids[0] || 'curiosity',
+        situation: '',
+        action: '',
+        result: '',
+        reflection: '',
+        rating: 0
+      };
+
+      // 繪製長處下拉清單 (將使用者的 Top 5 置頂)
+      populateStrengthSelect(record.strengthId);
+
+      // 填入表單欄位
+      document.getElementById('dayHeaderLabel').textContent = `Day ${dayNum}`;
+      document.getElementById('dayPositionIndicator').textContent = `Day ${dayNum} of 42`;
+      document.getElementById('inputDate').value = record.date || '';
+      document.getElementById('inputSituation').value = record.situation || '';
+      document.getElementById('inputAction').value = record.action || '';
+      document.getElementById('inputResult').value = record.result || '';
+      document.getElementById('inputReflection').value = record.reflection || '';
+
+      // 設定星級/自評
+      updateRatingUi(record.rating || 0);
+
+      // 更新長處定義展示卡
+      updateStrengthDefinitionCard(record.strengthId);
+
+      // 收起三個方向容器
+      document.getElementById('threeDirectionsContainer').classList.add('hidden');
+
+      renderDayPillContainer();
+      lucide.createIcons();
+    }
+
+    function populateStrengthSelect(selectedId) {
       const sel = document.getElementById('strengthSelect');
       sel.innerHTML = '';
 
-      const optGroupSig = document.createElement('optgroup');
-      optGroupSig.label = "⭐ 我的前 5 大標誌長處 (Signature Strengths)";
-
-      appState.signatureStrengths.forEach((sid, idx) => {
-        const item = VIA_CATALOG.find(x => x.id === sid);
+      // 第一群組：我的 Top 5 標誌長處
+      const groupTop = document.createElement('optgroup');
+      groupTop.label = '⭐ 我的 Top 5 核心標誌長處 (Signature Strengths)';
+      userTop5Ids.forEach((tid, idx) => {
+        const item = VIA_DATABASE.find(x => x.id === tid);
         if (item) {
           const opt = document.createElement('option');
           opt.value = item.id;
-          opt.textContent = `第 ${idx + 1} 位：${item.name} (${item.en}) - ${item.virtue}`;
-          optGroupSig.appendChild(opt);
+          opt.textContent = `★ Top ${idx + 1}：${item.name} (${item.virtue})`;
+          if (item.id === selectedId) opt.selected = true;
+          groupTop.appendChild(opt);
         }
       });
-      sel.appendChild(optGroupSig);
+      sel.appendChild(groupTop);
 
-      const optGroupOther = document.createElement('optgroup');
-      optGroupOther.label = "其他性格長處 (24項對照)";
-
-      VIA_CATALOG.forEach(item => {
-        if (!appState.signatureStrengths.includes(item.id)) {
-          const opt = document.createElement('option');
-          opt.value = item.id;
-          opt.textContent = `${item.name} (${item.en}) - ${item.virtue}`;
-          optGroupOther.appendChild(opt);
-        }
+      // 第二群組：完整 24 項性格長處
+      const groupAll = document.createElement('optgroup');
+      groupAll.label = '── 完整 24 項性格長處庫 ──';
+      VIA_DATABASE.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item.id;
+        opt.textContent = `${item.name} ｜ ${item.virtue}`;
+        if (item.id === selectedId && !sel.value) opt.selected = true;
+        groupAll.appendChild(opt);
       });
-      sel.appendChild(optGroupOther);
+      sel.appendChild(groupAll);
     }
 
-    function loadDayRecord(dayNum) {
-      const rec = appState.records[dayNum] || {};
-      
-      // Default to signature strength #1 or current active
-      const defaultStrength = appState.signatureStrengths[0] || 'curiosity';
-      const strengthId = rec.strengthId || defaultStrength;
-
-      document.getElementById('strengthSelect').value = strengthId;
-      document.getElementById('logDate').value = rec.date || '';
-      document.getElementById('logContext').value = rec.context || '';
-      document.getElementById('logAction').value = rec.action || '';
-      document.getElementById('logResult').value = rec.result || '';
-      document.getElementById('logReflection').value = rec.reflection || '';
-      
-      const rating = rec.rating !== undefined ? rec.rating : 4;
-      document.getElementById('logRating').value = rating;
-      updateRatingDisplay(rating);
-
-      handleStrengthChange();
-      updateDayHeader(dayNum, rec);
-
-      // Restore generated three directions if available
-      renderThreeDirections(rec.directions || []);
-      updateDirectionThemeLabel();
-    }
-
-    function updateDirectionThemeLabel() {
-      const w = appState.activeWeek;
-      const label = document.getElementById('reflectionGuideLabel');
-      if (w === 1) {
-        label.textContent = "整合反思：優勢使用模式 / 情境適切性 / 彈性因應";
-      } else if (w === 2) {
-        label.textContent = "整合反思：長處展現脈絡 / 觸發時機 / 身心耗損評估";
-      } else if (w === 3) {
-        label.textContent = "整合反思：主動實踐契機 / 行動阻礙克服 / 內在自我效能";
-      } else if (w === 4) {
-        label.textContent = "整合反思：跨域新維度嘗試 / 破除慣性視角 / 長處拓寬體驗";
-      } else if (w === 5) {
-        label.textContent = "整合反思：逆境心理緩衝 / 長處過與不及 / 韌性調適解方";
-      } else {
-        label.textContent = "整合反思：多項長處協奏 / 情境彈性調度 / 生活哲學整合";
+    function onStrengthSelectedChange() {
+      const selId = document.getElementById('strengthSelect').value;
+      updateStrengthDefinitionCard(selId);
+      autoSaveCurrentDay();
+      // 若三個方向已開啟，自動重新生成對應選中長處的內容
+      if (!document.getElementById('threeDirectionsContainer').classList.contains('hidden')) {
+        generateThreeDirections();
       }
     }
 
+    function updateStrengthDefinitionCard(strId) {
+      const item = VIA_DATABASE.find(x => x.id === strId) || VIA_DATABASE[0];
+      document.getElementById('dayVirtueBadge').textContent = item.virtue;
+      document.getElementById('defStrengthName').textContent = `${item.name}`;
+      document.getElementById('defVirtueName').textContent = item.virtue;
+      document.getElementById('defDescription').textContent = item.desc;
+      document.getElementById('defExample').textContent = `例：${item.example}`;
+    }
+
+    // ==========================================
+    // 自動即時存檔機制 (隨打即存)
+    // ==========================================
+    function autoSaveCurrentDay() {
+      if (!dailyRecords[currentDayNumber]) {
+        dailyRecords[currentDayNumber] = { day: currentDayNumber, week: currentWeekNumber };
+      }
+
+      const r = dailyRecords[currentDayNumber];
+      r.date = document.getElementById('inputDate').value;
+      r.strengthId = document.getElementById('strengthSelect').value;
+      r.situation = document.getElementById('inputSituation').value;
+      r.action = document.getElementById('inputAction').value;
+      r.result = document.getElementById('inputResult').value;
+      r.reflection = document.getElementById('inputReflection').value;
+
+      localStorage.setItem('via_daily_records', JSON.stringify(dailyRecords));
+
+      // 更新頂部已存天數
+      updateTotalProgressStats();
+      renderWeekNavPills();
+
+      // 微光存檔狀態動畫
+      const ind = document.getElementById('saveStatusIndicator');
+      const now = new Date();
+      const timeStr = now.toTimeString().split(' ')[0].slice(0, 5);
+      ind.innerHTML = `<i data-lucide="check" class="w-3 h-3"></i> 已於 ${timeStr} 儲存`;
+      lucide.createIcons();
+    }
+
+    function setRating(val) {
+      if (!dailyRecords[currentDayNumber]) dailyRecords[currentDayNumber] = {};
+      dailyRecords[currentDayNumber].rating = val;
+      updateRatingUi(val);
+      autoSaveCurrentDay();
+    }
+
+    function updateRatingUi(val) {
+      const container = document.getElementById('ratingBtnGroup');
+      const btns = container.querySelectorAll('button');
+      btns.forEach((b, idx) => {
+        if (idx + 1 <= val) {
+          b.className = 'w-8 h-8 rounded-lg bg-amber-600 text-white text-xs font-bold shadow-sm transition-all';
+        } else {
+          b.className = 'w-8 h-8 rounded-lg border border-stone-300 text-stone-700 text-xs font-bold hover:bg-stone-200 transition-all';
+        }
+      });
+
+      const label = document.getElementById('ratingDisplayLabel');
+      if (val > 0) {
+        label.textContent = `${val} 分（已評）`;
+      } else {
+        label.textContent = '未評分';
+      }
+    }
+
+    function goToPrevDay() {
+      if (currentDayNumber > 1) {
+        loadDayData(currentDayNumber - 1);
+      }
+    }
+
+    function goToNextDay() {
+      if (currentDayNumber < 42) {
+        loadDayData(currentDayNumber + 1);
+      }
+    }
+
+    // ==========================================
+    // 智慧三個方向引導生成器
+    // ==========================================
     function generateThreeDirections() {
-      const day = appState.activeDay;
-      const week = appState.activeWeek;
-      const contextVal = document.getElementById('logContext').value.trim() || '日常互動情境';
-      const strengthId = document.getElementById('strengthSelect').value;
-      const stObj = VIA_CATALOG.find(x => x.id === strengthId);
-      const stName = stObj ? stObj.name.split('/')[0].trim() : '此長處';
-      const virtue = stObj ? stObj.virtue : '';
-
-      let directions = [];
-
-      if (week === 1) {
-        // Week 1: Aware (優勢使用模式 / 情境適切性 / 彈性因應)
-        directions = [
-          {
-            title: "優勢使用模式",
-            text: `在「${contextVal}」中，我主要以「${stName}」（${virtue}）來回應；對照我實際做的事與結果，這次比較接近＿＿＿（使用不足／適切使用／過度使用），我這樣判斷是因為＿＿＿。`
-          },
-          {
-            title: "情境適切性",
-            text: `就這個情境的性質來看，「${stName}」用在這裡的時機與程度＿＿＿（合適／不太合適），因為這個場合真正需要的是＿＿＿，而我提供的是＿＿＿。`
-          },
-          {
-            title: "彈性因應",
-            text: `若再遇到類似情境，我可以把「${stName}」的強度調整為＿＿＿，或改以＿＿＿的方式表現；也可以搭配「＿＿＿」這項長處來補足原本不足的部分。`
-          }
-        ];
-      } else if (week === 2) {
-        // Week 2: Explore
-        directions = [
-          {
-            title: "長處展現脈絡",
-            text: `回顧在「${contextVal}」的當下，引發我調動「${stName}」的關鍵觸發點是＿＿＿，當時我的身體或心理感受是＿＿＿。`
-          },
-          {
-            title: "不同場域對照",
-            text: `與平時在家庭或休閒時相比，在這種情境下運用「${stName}」，我發現自己容易＿＿＿（更自在／更壓抑／更謹慎），主因在於＿＿＿。`
-          },
-          {
-            title: "能量得失評估",
-            text: `這次展現「${stName}」之後，我的心理能量狀態是＿＿＿（感覺充沛、很有心流／感到耗竭、需要抽離），這反映了我使用這項長處時＿＿＿。`
-          }
-        ];
-      } else if (week === 3) {
-        // Week 3: Apply
-        directions = [
-          {
-            title: "主動介入歷程",
-            text: `今天在「${contextVal}」中，我並非被動反應，而是刻意選擇調用「${stName}」；我在採取行動前，內心先提醒自己＿＿＿。`
-          },
-          {
-            title: "阻礙與突破",
-            text: `在試圖發揮「${stName}」的過程中，我遇到的主要摩擦或阻力是＿＿＿，後來我透過＿＿＿來回應。`
-          },
-          {
-            title: "自我效能增長",
-            text: `看到行動帶來的結果，我對自己運用「${stName}」的信心變化是＿＿＿；這讓我肯定了自己在＿＿＿方面的潛力。`
-          }
-        ];
-      } else if (week === 4) {
-        // Week 4: New ways
-        directions = [
-          {
-            title: "新維度跨界運用",
-            text: `不同於以往習慣的發揮方式，這次我在「${contextVal}」中，嘗試用了一種新方法運用「${stName}」：＿＿＿。`
-          },
-          {
-            title: "跳脫慣性實驗",
-            text: `用全新方式調用這項長處時，一開始有些＿＿＿（不習慣／彆扭／興奮），但隨後我觀察到周遭或事情進展出現了＿＿＿的變化。`
-          },
-          {
-            title: "長處光譜拓寬",
-            text: `這個實驗打破了我原本對「${stName}」只能用在＿＿＿的既定框架，未來在＿＿＿的情況下我也能如法炮製。`
-          }
-        ];
-      } else if (week === 5) {
-        // Week 5: Challenge
-        directions = [
-          {
-            title: "逆境緩衝機制",
-            text: `面對「${contextVal}」帶來的壓力或挑戰，我將「${stName}」作為我的心理支點，幫助我穩住＿＿＿的情緒。`
-          },
-          {
-            title: "黃金中道（過與不及）",
-            text: `在壓力下，這項長處有沒有不小心變成「過度使用」（如變得挑剔、執著、冒進）？我認為這次在分寸拿捏上＿＿＿，因為＿＿＿。`
-          },
-          {
-            title: "韌性復原與轉化",
-            text: `透過「${stName}」的介入，這場挑戰對我的意義從原本的「＿＿＿」，轉化為「＿＿＿」。`
-          }
-        ];
-      } else {
-        // Week 6: Flexible use
-        directions = [
-          {
-            title: "長處複音協奏",
-            text: `在處理「${contextVal}」時，除了核心的「${stName}」，我還自然融合了「＿＿＿」這項長處，兩者發揮的綜效是＿＿＿。`
-          },
-          {
-            title: "情境敏捷度",
-            text: `觀察整個事情從起因到結果，我是在＿＿＿的轉折點上靈活切換長處策略，這讓我感到在應對複雜問題時更加游刃有餘。`
-          },
-          {
-            title: "生活實踐哲學",
-            text: `經過這六週的積累，「${stName}」已從刻意練習逐漸變成我的生活直覺，它讓我更清楚自己想成為一個＿＿＿的人。`
-          }
-        ];
-      }
-
-      renderThreeDirections(directions);
-      autoSaveForm();
-      showToast('已為您生成三個思考方向引導！', 'info');
-    }
-
-    function renderThreeDirections(directions) {
       const container = document.getElementById('threeDirectionsContainer');
-      const btn = document.getElementById('suggestBtn');
+      const situation = document.getElementById('inputSituation').value.trim() || '（目前情境）';
+      const strengthId = document.getElementById('strengthSelect').value;
+      const strengthObj = VIA_DATABASE.find(x => x.id === strengthId) || VIA_DATABASE[0];
+      const strName = strengthObj.name.split(' ')[0];
+      const meta = WEEKS_METADATA[currentWeekNumber];
 
-      if (!directions || directions.length === 0) {
-        container.classList.add('hidden');
-        container.innerHTML = '';
-        btn.textContent = '給我三個方向';
-        return;
+      let card1 = {}, card2 = {}, card3 = {};
+
+      if (currentWeekNumber === 1) {
+        card1 = {
+          tag: '優勢使用模式',
+          prompt: `在「${situation}」中，我主要以「${strName}」（${strengthObj.virtue}）來回應；對照我實際做的事與結果，這次比較接近___（使用不足 / 適切使用 / 過度使用），我這樣判斷是因為___。`
+        };
+        card2 = {
+          tag: '情境適切性',
+          prompt: `就這個情境的性質來看，「${strName}」用在這裡的時機與程度___（合適 / 不太合適），因為這個場合真正需要的是___，而我提供的是___。`
+        };
+        card3 = {
+          tag: '彈性因應',
+          prompt: `若再遇到類似情境，我可以把「${strName}」的強度調整為___，或改以___的方式表現；也可以搭配「___」這項長處來補足原本不足的部分。`
+        };
+      } else if (currentWeekNumber === 2) {
+        card1 = {
+          tag: '展現脈絡探索',
+          prompt: `當我在面對「${situation}」時，「${strName}」的出現是否帶有過去習慣的影子？在人際應對中它是主動出擊還是防禦機制？`
+        };
+        card2 = {
+          tag: '過度或不足檢視',
+          prompt: `我在這裡調用「${strName}」是否用力過猛？是否有忽略了他人真正的需求，抑或只是點到為止而未能深耕？`
+        };
+        card3 = {
+          tag: '能量與心流體察',
+          prompt: `展現完「${strName}」之後，我的內在能量是感到充實充電、還是感到虛耗疲憊？這反映出我與這項長處的何種關係？`
+        };
+      } else if (currentWeekNumber === 3) {
+        card1 = {
+          tag: '意圖性目標對齊',
+          prompt: `我今天不是被動應付「${situation}」，而是有意識地以「${strName}」去推動什麼樣的實質轉化？`
+        };
+        card2 = {
+          tag: '障礙突破槓桿',
+          prompt: `在處理這個情境過程中，遭遇了什麼阻力？「${strName}」是如何幫助我繞過或正面化解這個瓶頸的？`
+        };
+        card3 = {
+          tag: '成效與價值沉澱',
+          prompt: `這個行動為現場關係或專案帶來了什麼具體的不同？我自己獲得了什麼不可替代的成就感？`
+        };
+      } else if (currentWeekNumber === 4) {
+        card1 = {
+          tag: '非常規表現手法',
+          prompt: `不同於以往習慣的展現，今天我用了一種全新的方式來運用「${strName}」，這種打破習慣的感覺是___。`
+        };
+        card2 = {
+          tag: '跨域遷移體驗',
+          prompt: `把原本擅長於___的「${strName}」，轉移到「${situation}」這類完全不同的場合，發現它產生了___意想不到的效果。`
+        };
+        card3 = {
+          tag: '長處組合撞擊',
+          prompt: `今天除了「${strName}」，我是否無形中混搭了另一項長處「___」？這兩種特質交融帶來了何種新視野？`
+        };
+      } else if (currentWeekNumber === 5) {
+        card1 = {
+          tag: '抗逆心理緩衝',
+          prompt: `在「${situation}」帶來的壓力挫折下，「${strName}」如何守住我的心理防線，讓我沒有落入消極抱怨？`
+        };
+        card2 = {
+          tag: '挫折認知重塑',
+          prompt: `如果戴上「${strName}」的眼鏡重新審視這次困難，這場逆境其實是在提醒我學會什麼關鍵功課？`
+        };
+        card3 = {
+          tag: '情緒調節與賦能',
+          prompt: `這項長處如何幫助我安撫當下的焦慮或挫折感，並讓我有勇氣做出下一步有建設性的決定？`
+        };
+      } else {
+        card1 = {
+          tag: '動態協奏與平衡',
+          prompt: `面對「${situation}」這樣複雜的多方情境，我如何在「${strName}」與其他長處之間收放自如、拿捏分寸？`
+        };
+        card2 = {
+          tag: '實踐黃金中道',
+          prompt: `我是否達到了亞里斯多德所謂的「黃金中道」——不多不少、在對的時間、對對的人、以對的強度展現長處？`
+        };
+        card3 = {
+          tag: '長期深化承諾',
+          prompt: `走過這六週的實踐歷程，未來在工作與日常生活中，我願意如何持續守護並綻放這份內在優勢？`
+        };
       }
+
+      container.innerHTML = `
+        <div class="text-[11px] text-stone-500 mb-1 flex items-center justify-between">
+          <span>點選任一卡片可直接填入下方反思框：</span>
+          <span class="text-stone-400">第 ${currentWeekNumber} 週特化引導</span>
+        </div>
+        <div class="grid grid-cols-1 gap-2.5">
+          ${renderDirectionCardHtml(card1)}
+          ${renderDirectionCardHtml(card2)}
+          ${renderDirectionCardHtml(card3)}
+        </div>
+      `;
 
       container.classList.remove('hidden');
-      container.innerHTML = '';
-      btn.textContent = '重新產生';
+      document.getElementById('threeDirBtnLabel').textContent = '重新產生';
+      lucide.createIcons();
+    }
 
-      directions.forEach(item => {
-        const card = document.createElement('div');
-        card.className = "bg-white p-3.5 rounded-xl border border-[#DDD3C5] shadow-xs text-xs space-y-1.5 cursor-pointer hover:border-navy hover:bg-[#FAF8F5] transition group";
-        card.onclick = () => injectDirectionToReflection(item.title, item.text);
-        
-        card.innerHTML = `
-          <div class="flex items-center justify-between text-muted text-[11px]">
-            <span class="font-bold text-ink">${item.title}</span>
-            <span class="text-[10px] text-navy opacity-0 group-hover:opacity-100 transition"><i class="fa-solid fa-arrow-down mr-1"></i>填入反思框</span>
+    function renderDirectionCardHtml(c) {
+      return `
+        <div onclick="injectPromptText('${escapeQuotes(c.prompt)}')" class="bg-[#FAF8F5] border border-[#DDD6C8] hover:border-stone-800 p-3 rounded-xl cursor-pointer transition-all hover:shadow-sm group">
+          <div class="text-[11px] font-bold text-amber-900 flex items-center justify-between">
+            <span>${c.tag}</span>
+            <span class="text-[10px] text-stone-400 group-hover:text-stone-800 flex items-center gap-0.5">點擊帶入 <i data-lucide="arrow-down-left" class="w-3 h-3"></i></span>
           </div>
-          <p class="text-ink leading-relaxed">${item.text}</p>
-        `;
-        container.appendChild(card);
-      });
+          <p class="text-xs text-stone-700 mt-1 leading-relaxed">${c.prompt}</p>
+        </div>
+      `;
     }
 
-    function injectDirectionToReflection(title, text) {
-      const refBox = document.getElementById('logReflection');
-      const currentVal = refBox.value.trim();
-      const insertChunk = `【${title}】\n${text}`;
+    function escapeQuotes(str) {
+      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
 
-      if (currentVal) {
-        refBox.value = currentVal + '\n\n' + insertChunk;
+    function injectPromptText(txt) {
+      const area = document.getElementById('inputReflection');
+      if (area.value.trim().length > 0) {
+        area.value = area.value.trim() + '\n\n' + txt;
       } else {
-        refBox.value = insertChunk;
+        area.value = txt;
       }
-      refBox.focus();
-      autoSaveForm();
-      showToast(`已將「${title}」填入反思內文！`, 'success');
+      autoSaveCurrentDay();
+      showToast('已將思考方向帶入反思文字框');
     }
 
-    function autoSaveForm() {
-      saveCurrentDayForm();
-    }
-
-    // Attach auto-save event listeners to input elements
-    ['logDate', 'logContext', 'logAction', 'logResult', 'logReflection'].forEach(id => {
-      document.getElementById(id).addEventListener('input', autoSaveForm);
-    });
-
-    function saveCurrentDayForm() {
-      const day = appState.activeDay;
-      const dateVal = document.getElementById('logDate').value.trim();
-      const stVal = document.getElementById('strengthSelect').value;
-      const contextVal = document.getElementById('logContext').value.trim();
-      const actionVal = document.getElementById('logAction').value.trim();
-      const resultVal = document.getElementById('logResult').value.trim();
-      const reflectionVal = document.getElementById('logReflection').value.trim();
-      const ratingVal = parseInt(document.getElementById('logRating').value);
-
-      // Collect existing directions
-      const currentRec = appState.records[day] || {};
-      const dirNodes = document.querySelectorAll('#threeDirectionsContainer > div');
-      let currentDirs = currentRec.directions || [];
-      if (dirNodes.length > 0) {
-        currentDirs = [];
-        dirNodes.forEach(n => {
-          const t = n.querySelector('span.font-bold')?.textContent || '';
-          const p = n.querySelector('p')?.textContent || '';
-          if (t && p) currentDirs.push({ title: t, text: p });
-        });
-      }
-
-      const isCompleted = Boolean(actionVal.length > 2 || contextVal.length > 2 || resultVal.length > 2);
-
-      appState.records[day] = {
-        date: dateVal,
-        strengthId: stVal,
-        context: contextVal,
-        action: actionVal,
-        result: resultVal,
-        reflection: reflectionVal,
-        rating: ratingVal,
-        completed: isCompleted,
-        directions: currentDirs
-      };
-
-      saveToLocalStorage();
-      renderWeekButtons();
-    }
-
-    function prevDay() {
-      saveCurrentDayForm();
-      if (appState.activeDay > 1) {
-        appState.activeDay--;
-        appState.activeWeek = Math.ceil(appState.activeDay / 7);
-        updateUI();
-      }
-    }
-
-    function nextDay() {
-      saveCurrentDayForm();
-      if (appState.activeDay < 42) {
-        appState.activeDay++;
-        appState.activeWeek = Math.ceil(appState.activeDay / 7);
-        updateUI();
-      }
-    }
-
-    function updateOverallProgressBadge() {
-      let count = 0;
-      for (let d = 1; d <= 42; d++) {
-        if (appState.records[d] && appState.records[d].completed) count++;
-      }
-      document.getElementById('progressFraction').textContent = `${count}/42 天・已儲存`;
-      const pct = Math.round((count / 42) * 100);
-      const bar = document.getElementById('summaryProgressBar');
-      if (bar) bar.style.width = pct + '%';
-      const countEl = document.getElementById('summaryCompletedDays');
-      if (countEl) countEl.textContent = count;
-    }
-
-    function renderSummaryView() {
-      let totalCompleted = 0;
-      let signatureCount = 0;
-      let ratingSum = 0;
-      let ratingCount = 0;
-      let totalWords = 0;
-      const freqMap = {};
-
-      VIA_CATALOG.forEach(s => freqMap[s.id] = 0);
-
-      for (let d = 1; d <= 42; d++) {
-        const rec = appState.records[d];
-        if (rec && rec.completed) {
-          totalCompleted++;
-          if (appState.signatureStrengths.includes(rec.strengthId)) {
-            signatureCount++;
-          }
-          if (rec.rating) {
-            ratingSum += rec.rating;
-            ratingCount++;
-          }
-          freqMap[rec.strengthId] = (freqMap[rec.strengthId] || 0) + 1;
-          const words = (rec.context || '').length + (rec.action || '').length + (rec.reflection || '').length;
-          totalWords += words;
-        }
-      }
-
-      // Stats
-      const sigRatio = totalCompleted > 0 ? Math.round((signatureCount / totalCompleted) * 100) : 0;
-      const avgRating = ratingCount > 0 ? (ratingSum / ratingCount).toFixed(1) : "0.0";
-      
-      let topStrengthName = "尚無資料";
-      let maxFreq = 0;
-      Object.keys(freqMap).forEach(k => {
-        if (freqMap[k] > maxFreq) {
-          maxFreq = freqMap[k];
-          const found = VIA_CATALOG.find(x => x.id === k);
-          if (found) topStrengthName = `${found.name} (${maxFreq}次)`;
-        }
-      });
-
-      document.getElementById('statSigRatio').textContent = `${sigRatio}%`;
-      document.getElementById('statAvgRating').textContent = `${avgRating} / 5`;
-      document.getElementById('statTopStrength').textContent = topStrengthName;
-      document.getElementById('statTotalWords').textContent = `${totalWords} 字`;
-
-      // Frequency List (show all strengths with count > 0 or top 5)
-      const freqList = document.getElementById('strengthFrequencyList');
-      freqList.innerHTML = '';
-
-      const sortedStrengths = [...VIA_CATALOG].sort((a, b) => (freqMap[b.id] || 0) - (freqMap[a.id] || 0));
-      sortedStrengths.forEach(st => {
-        const count = freqMap[st.id] || 0;
-        const isSig = appState.signatureStrengths.includes(st.id);
-
-        if (count > 0 || isSig) {
-          const row = document.createElement('div');
-          row.className = "flex items-center gap-2";
-          const maxScale = Math.max(1, maxFreq);
-          const widthPct = Math.round((count / maxScale) * 100);
-
-          row.innerHTML = `
-            <div class="w-28 sm:w-36 truncate font-medium flex items-center gap-1">
-              ${isSig ? '<i class="fa-solid fa-star text-[10px] text-amber-600"></i>' : ''}
-              <span class="${isSig ? 'font-bold text-navy' : 'text-ink'}">${st.name}</span>
-            </div>
-            <div class="flex-1 bg-[#EBE5DC] h-3 rounded-full overflow-hidden">
-              <div class="${isSig ? 'bg-amber-600' : 'bg-navy'} h-full rounded-full" style="width: ${widthPct}%"></div>
-            </div>
-            <div class="w-8 text-right font-mono text-xs text-muted">${count}次</div>
-          `;
-          freqList.appendChild(row);
-        }
-      });
-
-      // 42 Days Matrix
-      const matrix = document.getElementById('matrixGrid');
-      matrix.innerHTML = '';
-      for (let d = 1; d <= 42; d++) {
-        const rec = appState.records[d];
-        const isDone = rec && rec.completed;
-        const cell = document.createElement('button');
-        cell.onclick = () => {
-          saveCurrentDayForm();
-          appState.activeDay = d;
-          appState.activeWeek = Math.ceil(d / 7);
-          switchMainTab('daily');
-          updateUI();
-        };
-
-        if (isDone) {
-          cell.className = "p-2 rounded-lg bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 text-emerald-900 transition flex flex-col items-center justify-center";
-          cell.innerHTML = `<span class="text-[10px] font-mono font-bold">D${d}</span><i class="fa-solid fa-check text-[10px] text-emerald-700"></i>`;
-        } else {
-          cell.className = "p-2 rounded-lg bg-white hover:bg-[#F2ECE3] border border-[#DDD3C5] text-muted transition flex flex-col items-center justify-center";
-          cell.innerHTML = `<span class="text-[10px] font-mono">D${d}</span><span class="text-[9px] text-muted/60">-</span>`;
-        }
-        matrix.appendChild(cell);
-      }
-    }
-
-    function filterVirtue(virtueName) {
-      appState.activeVirtueFilter = virtueName;
-      document.querySelectorAll('.virtue-btn').forEach(b => {
-        b.className = "virtue-btn px-3 py-1 rounded-full text-xs font-medium bg-white text-ink border border-[#DDD3C5] hover:bg-[#F2ECE3] transition";
-      });
-      event.target.className = "virtue-btn active px-3 py-1 rounded-full text-xs font-semibold bg-navy text-white transition";
-      renderCatalogView();
-    }
-
-    function renderCatalogView() {
-      const grid = document.getElementById('catalogGrid');
-      grid.innerHTML = '';
-
-      const filtered = appState.activeVirtueFilter === 'all' 
-        ? VIA_CATALOG 
-        : VIA_CATALOG.filter(x => x.virtue === appState.activeVirtueFilter);
-
-      filtered.forEach(st => {
-        const isSignature = appState.signatureStrengths.includes(st.id);
-        const sigIndex = appState.signatureStrengths.indexOf(st.id);
-
-        const card = document.createElement('div');
-        card.className = `p-4 rounded-xl border transition-all ${isSignature ? 'bg-amber-50/70 border-amber-300 shadow-sm' : 'bg-white border-[#DDD3C5]'}`;
-        
-        card.innerHTML = `
-          <div class="flex items-start justify-between gap-2 pb-2 border-b border-[#EFE9DF]">
-            <div>
-              <div class="flex items-center gap-1.5">
-                ${isSignature ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-600 text-white font-mono">Top ${sigIndex + 1}</span>` : ''}
-                <h4 class="font-serif font-bold text-sm text-ink">${st.name}</h4>
-                <span class="text-xs text-muted font-sans font-normal">${st.en}</span>
-              </div>
-              <span class="text-[10px] text-muted font-medium">${st.virtue}</span>
-            </div>
-            <button onclick="toggleQuickSignature('${st.id}')" class="text-xs p-1 text-muted hover:text-amber-600" title="切換為前 5 大長處">
-              <i class="fa-${isSignature ? 'solid' : 'regular'} fa-star ${isSignature ? 'text-amber-600' : ''}"></i>
-            </button>
-          </div>
-          <p class="text-xs text-ink/80 mt-2 leading-relaxed">${st.desc}</p>
-          <div class="mt-2 text-[11px] text-muted bg-[#F6F2EB] p-2 rounded-lg">
-            <strong>實踐範例：</strong>${st.example}
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function toggleQuickSignature(sid) {
-      const idx = appState.signatureStrengths.indexOf(sid);
-      if (idx > -1) {
-        if (appState.signatureStrengths.length <= 1) {
-          showToast('至少保留一項標誌長處。', 'warning');
-          return;
-        }
-        appState.signatureStrengths.splice(idx, 1);
-        showToast('已自標誌長處移除。', 'info');
-      } else {
-        if (appState.signatureStrengths.length >= 5) {
-          showToast('標誌長處至多設定 5 項，請先點選右上角設定調整。', 'warning');
-          return;
-        }
-        appState.signatureStrengths.push(sid);
-        showToast('已加入個人標誌長處！', 'success');
-      }
-      saveToLocalStorage();
-      populateStrengthSelect();
-      renderCatalogView();
-    }
-
-    function exportJSON() {
-      saveCurrentDayForm();
-      const exportData = {
-        app: "Character Strengths in Practice",
-        version: "1.0",
-        exportDate: new Date().toISOString(),
-        signatureStrengths: appState.signatureStrengths,
-        records: appState.records
-      };
-
-      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-      downloadBlob(blob, `VIA_性格長處實踐備份_${getTodayDateStr()}.json`);
-      showToast('JSON 完整備份檔已成功下載！', 'success');
-    }
-
-    function exportCSV() {
-      saveCurrentDayForm();
-      let csv = "\uFEFF"; // UTF-8 BOM for Excel
-      csv += "天數,週次,階段,日期,性格長處,所屬美德,是否為前5大標誌長處,滿意度(1-5),情境/挑戰,做了什麼,結果如何,整合反思\n";
-
-      for (let d = 1; d <= 42; d++) {
-        const week = Math.ceil(d / 7);
-        const stage = WEEKS_INFO[week].name;
-        const rec = appState.records[d] || {};
-        const stObj = VIA_CATALOG.find(x => x.id === rec.strengthId);
-        const stName = stObj ? stObj.name : "";
-        const stVirtue = stObj ? stObj.virtue : "";
-        const isSig = appState.signatureStrengths.includes(rec.strengthId) ? "是" : "否";
-        const rating = rec.rating || "";
-
-        const cleanContext = `"${(rec.context || '').replace(/"/g, '""')}"`;
-        const cleanAction = `"${(rec.action || '').replace(/"/g, '""')}"`;
-        const cleanResult = `"${(rec.result || '').replace(/"/g, '""')}"`;
-        const cleanReflect = `"${(rec.reflection || '').replace(/"/g, '""')}"`;
-
-        csv += `Day ${d},第${week}週,${stage},"${rec.date || ''}","${stName}","${stVirtue}",${isSig},${rating},${cleanContext},${cleanAction},${cleanResult},${cleanReflect}\n`;
-      }
-
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      downloadBlob(blob, `VIA_六週實踐研究統計總表_${getTodayDateStr()}.csv`);
-      showToast('Excel/CSV 統計總表已下載！', 'success');
-    }
-
-    function exportMarkdown() {
-      saveCurrentDayForm();
-      let md = `# 性格長處・六週日常實踐研究報告 (Character Strengths in Practice)\n\n`;
-      md += `*匯出日期：${getTodayDateStr()} | 實踐者標誌長處：${appState.signatureStrengths.map(s => {
-        const f = VIA_CATALOG.find(x => x.id === s);
-        return f ? f.name : s;
-      }).join('、')}*\n\n`;
-
-      for (let w = 1; w <= 6; w++) {
-        const info = WEEKS_INFO[w];
-        md += `## 第 ${w} 週：${info.title}\n`;
-        md += `> **階段目標**：${info.desc}\n\n`;
-
-        for (let d = (w - 1) * 7 + 1; d <= w * 7; d++) {
-          const rec = appState.records[d];
-          if (rec && rec.completed) {
-            const stObj = VIA_CATALOG.find(x => x.id === rec.strengthId);
-            const stName = stObj ? `${stObj.name} (${stObj.virtue})` : '未指定';
-            md += `### Day ${d} [${rec.date || '無日期'}] · ${stName}\n`;
-            md += `- **發揮滿意度**：${rec.rating} / 5 分\n`;
-            md += `- **情境 / 挑戰**：${rec.context || '無'}\n`;
-            md += `- **做了什麼**：${rec.action || '無'}\n`;
-            md += `- **結果如何**：${rec.result || '無'}\n`;
-            md += `- **整合反思**：${rec.reflection || '無'}\n\n`;
-          } else {
-            md += `### Day ${d}：*(尚未記錄)*\n\n`;
-          }
-        }
-        md += `---\n\n`;
-      }
-
-      const blob = new Blob([md], { type: 'text/markdown;charset=utf-8;' });
-      downloadBlob(blob, `VIA_六週實踐報告書_${getTodayDateStr()}.md`);
-      showToast('Markdown 實踐報告已下載！', 'success');
-    }
-
-    function importJSON() {
-      const fileInput = document.getElementById('jsonFileInput');
-      if (!fileInput.files || fileInput.files.length === 0) {
-        showToast('請先選擇 .json 備份檔案。', 'warning');
-        return;
-      }
-
-      const file = fileInput.files[0];
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const imported = JSON.parse(e.target.result);
-          if (imported.records) {
-            appState.records = imported.records;
-            if (imported.signatureStrengths && Array.isArray(imported.signatureStrengths)) {
-              appState.signatureStrengths = imported.signatureStrengths;
-            }
-            saveToLocalStorage();
-            updateUI();
-            showToast('備份資料還原成功！', 'success');
-          } else {
-            showToast('匯入檔案格式不正確。', 'warning');
-          }
-        } catch (err) {
-          showToast('無法解析此 JSON 備份檔。', 'warning');
-        }
-      };
-      reader.readAsText(file);
-    }
-
-    function resetAllData() {
-      if (confirm('確定要清空所有 42 天的實踐紀錄嗎？此動作無法復原！建議先下載 JSON 備份。')) {
-        appState.records = {};
-        saveToLocalStorage();
-        updateUI();
-        showToast('所有紀錄已清空重置。', 'info');
-      }
-    }
-
-    function downloadBlob(blob, filename) {
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    function getTodayDateStr() {
-      return new Date().toISOString().slice(0, 10);
-    }
-
-    function openPdfModal() {
-      document.getElementById('pdfModal').classList.remove('hidden');
-    }
-
-    function closePdfModal() {
-      document.getElementById('pdfModal').classList.add('hidden');
-    }
-
-    async function handlePdfUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      showToast('正在解析 VIA 測驗報告 PDF...', 'info');
-
-      try {
-        const arrayBuffer = await file.arrayBuffer();
-        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-        let fullText = "";
-
-        // Read first 3 pages (Signature strengths are usually on page 1-3)
-        const pagesToRead = Math.min(pdf.numPages, 4);
-        for (let i = 1; i <= pagesToRead; i++) {
-          const page = await pdf.getPage(i);
-          const content = await page.getTextContent();
-          const strings = content.items.map(item => item.str);
-          fullText += strings.join(" ") + "\n";
-        }
-
-        extractAndSetSignatureStrengths(fullText);
-      } catch (err) {
-        console.error("PDF Parsing error", err);
-        showToast('PDF 解析失敗，您可手動貼上報告文字進行辨識。', 'warning');
-      }
-    }
-
-    function parsePastedText() {
-      const text = document.getElementById('manualPdfText').value.trim();
-      if (!text) {
-        showToast('請先貼上文字。', 'warning');
-        return;
-      }
-      extractAndSetSignatureStrengths(text);
-    }
-
-    function extractAndSetSignatureStrengths(rawText) {
-      const matched = [];
-
-      // Keyword mapping for both Chinese & English VIA terms
-      VIA_CATALOG.forEach(item => {
-        const regexZh = new RegExp(item.name.split('/')[0].trim(), 'i');
-        const regexEn = new RegExp(item.en, 'i');
-        
-        let pos = rawText.search(regexZh);
-        if (pos === -1) pos = rawText.search(regexEn);
-
-        if (pos !== -1) {
-          matched.push({ id: item.id, pos: pos, name: item.name });
-        }
-      });
-
-      // Sort by appearance order in text
-      matched.sort((a, b) => a.pos - b.pos);
-
-      if (matched.length >= 3) {
-        const top5 = matched.slice(0, 5).map(m => m.id);
-        // Fill up to 5 if needed
-        while (top5.length < 5) {
-          for (let st of VIA_CATALOG) {
-            if (!top5.includes(st.id)) {
-              top5.push(st.id);
-              break;
-            }
-          }
-        }
-
-        appState.signatureStrengths = top5;
-        saveToLocalStorage();
-        updateUI();
-        closePdfModal();
-        const names = top5.map(id => VIA_CATALOG.find(x => x.id === id).name).join('、');
-        showToast(`已成功鎖定前 5 大長處：${names}`, 'success');
-      } else {
-        showToast('無法自動識別足夠的長處，請開啟自訂選單手動勾選。', 'warning');
-        closePdfModal();
-        openSignatureModal();
-      }
-    }
-
-    function openSignatureModal() {
-      const container = document.getElementById('sigSelectorsContainer');
+    // ==========================================
+    // 設定個人前 5 大標誌長處 (對話框與存檔修復)
+    // ==========================================
+    function openTopStrengthsModal() {
+      const container = document.getElementById('top5SelectContainer');
       container.innerHTML = '';
 
       for (let i = 0; i < 5; i++) {
-        const currentSid = appState.signatureStrengths[i] || VIA_CATALOG[i].id;
         const row = document.createElement('div');
-        row.className = "flex items-center gap-2";
+        row.className = 'flex items-center gap-3';
         row.innerHTML = `
-          <span class="text-xs font-bold text-navy font-mono w-14">Top ${i + 1}</span>
-          <select id="sigSelect-${i}" class="flex-1 text-xs p-2 rounded-lg bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy">
-            ${VIA_CATALOG.map(item => `
-              <option value="${item.id}" ${item.id === currentSid ? 'selected' : ''}>
-                ${item.name} (${item.en}) - ${item.virtue}
+          <span class="text-xs font-bold text-stone-700 w-12 shrink-0">Top ${i + 1}</span>
+          <select id="modalTopSelect_${i}" class="flex-1 bg-[#FAF8F5] border border-[#DDD6C8] rounded-xl px-3 py-2 text-xs text-stone-800 focus:outline-none focus:border-stone-900">
+            ${VIA_DATABASE.map(item => `
+              <option value="${item.id}" ${item.id === userTop5Ids[i] ? 'selected' : ''}>
+                ${item.name} -${item.virtue}
               </option>
             `).join('')}
           </select>
@@ -1506,59 +1065,488 @@
         container.appendChild(row);
       }
 
-      document.getElementById('signatureModal').classList.remove('hidden');
+      document.getElementById('topStrengthsModal').classList.remove('hidden');
+      lucide.createIcons();
     }
 
-    function closeSignatureModal() {
-      document.getElementById('signatureModal').classList.add('hidden');
+    function closeTopStrengthsModal() {
+      document.getElementById('topStrengthsModal').classList.add('hidden');
     }
 
-    function saveSignatureStrengths() {
-      const newSigs = [];
+    // ★★★ 核心修復：按下儲存後，對話框必定關閉並更新畫面 ★★★
+    function saveTopStrengths() {
+      const newTop5 = [];
       for (let i = 0; i < 5; i++) {
-        const val = document.getElementById(`sigSelect-${i}`).value;
-        if (!newSigs.includes(val)) {
-          newSigs.push(val);
+        const val = document.getElementById(`modalTopSelect_${i}`).value;
+        newTop5.push(val);
+      }
+
+      userTop5Ids = newTop5;
+      localStorage.setItem('via_user_top5', JSON.stringify(userTop5Ids));
+
+      // 1. 關閉彈跳對話框
+      closeTopStrengthsModal();
+
+      // 2. 重新更新當前表單下拉選單
+      populateStrengthSelect(dailyRecords[currentDayNumber]?.strengthId || userTop5Ids[0]);
+
+      // 3. 重新渲染長處對照卡片徽章
+      renderAllStrengthCards();
+
+      // 4. 彈出成功提示
+      showToast('✓ 已成功更新您的個人 Top 5 核心標誌長處！');
+    }
+
+    // ==========================================
+    // 長處對照 TAB：24 長處卡片、美德篩選與搜尋 (修復完整顯示)
+    // ==========================================
+    function renderAllStrengthCards() {
+      const grid = document.getElementById('strengthsCardsGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const query = (document.getElementById('strengthSearchInput')?.value || '').trim().toLowerCase();
+
+      const filtered = VIA_DATABASE.filter(item => {
+        const matchVirtue = (selectedVirtueFilter === 'all') || (item.virtue === selectedVirtueFilter);
+        const matchQuery = !query ||
+          item.name.toLowerCase().includes(query) ||
+          item.en.toLowerCase().includes(query) ||
+          item.desc.toLowerCase().includes(query) ||
+          item.example.toLowerCase().includes(query);
+        return matchVirtue && matchQuery;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-12 text-center text-stone-400 text-xs">查無符合條件的性格長處</div>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        // 判斷是否為個人 Top 5
+        const topIndex = userTop5Ids.indexOf(item.id);
+        const isTop5 = topIndex !== -1;
+
+        const card = document.createElement('div');
+        card.className = `bg-white border rounded-2xl p-5 flex flex-col justify-between transition-all hover:shadow-md ${
+          isTop5 ? 'border-amber-300 ring-1 ring-amber-300/50 bg-amber-50/20' : 'border-[#E2DDD3]'
+        }`;
+
+        card.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-[#EAE5DA] text-stone-700 font-medium">
+                  ${item.virtue}
+                </span>
+                <h4 class="text-base font-bold text-stone-900 serif-font mt-1.5">${item.name}</h4>
+                <div class="text-[11px] text-stone-400 font-mono">${item.en}</div>
+              </div>
+              ${isTop5 ? `
+                <span class="bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 shadow-sm">
+                  ★ 我的 Top ${topIndex + 1}
+                </span>
+              ` : ''}
+            </div>
+
+            <p class="text-xs text-stone-600 leading-relaxed">${item.desc}</p>
+            
+            <div class="text-[11px] text-stone-500 italic bg-[#FAF8F4] p-2.5 rounded-xl border border-[#EDE7DC]">
+              <span class="font-semibold text-stone-600 not-italic">生活實踐：</span>${item.example}
+            </div>
+          </div>
+
+          <div class="pt-4 mt-4 border-t border-stone-100 flex justify-between items-center">
+            <span class="text-[10px] text-stone-400">VIA 官方正向分類</span>
+            <button onclick="applyStrengthToCurrentDay('${item.id}')" class="px-3 py-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 text-white text-xs font-medium flex items-center gap-1 transition-all shadow-sm">
+              以此長處寫今天記錄 <i data-lucide="arrow-right" class="w-3 h-3"></i>
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    function filterStrengthsView(virtue) {
+      selectedVirtueFilter = virtue;
+      const virtues = ['all', '智慧與知識', '勇氣', '仁愛', '正義', '節制', '靈性超越'];
+      virtues.forEach(v => {
+        const btn = document.getElementById(`vf-${v}`);
+        if (btn) {
+          if (v === virtue) {
+            btn.className = 'px-3 py-1.5 rounded-full text-xs font-semibold bg-stone-900 text-white shadow-sm transition-all';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-full text-xs font-medium bg-[#EAE5DA] text-stone-700 hover:bg-stone-300 transition-all';
+          }
+        }
+      });
+      renderAllStrengthCards();
+    }
+
+    function onStrengthSearch(e) {
+      renderAllStrengthCards();
+    }
+
+    function applyStrengthToCurrentDay(strId) {
+      dailyRecords[currentDayNumber].strengthId = strId;
+      autoSaveCurrentDay();
+      switchMainTab('daily');
+      loadDayData(currentDayNumber);
+      showToast(`已將今日（Day ${currentDayNumber}）設定為此長處`);
+    }
+
+    // ==========================================
+    // 總覽統計與 42 天全景矩陣
+    // ==========================================
+    function updateTotalProgressStats() {
+      let filledDays = 0;
+      let totalWords = 0;
+      let ratingSum = 0;
+      let ratingCount = 0;
+      const countMap = {};
+
+      for (let i = 1; i <= 42; i++) {
+        const r = dailyRecords[i];
+        if (r && isRecordFilled(i)) {
+          filledDays++;
+          const len = (r.situation || '').length + (r.action || '').length + (r.result || '').length + (r.reflection || '').length;
+          totalWords += len;
+
+          if (r.rating > 0) {
+            ratingSum += r.rating;
+            ratingCount++;
+          }
+
+          if (r.strengthId) {
+            countMap[r.strengthId] = (countMap[r.strengthId] || 0) + 1;
+          }
         }
       }
 
-      if (newSigs.length < 5) {
-        // If duplicates were selected, backfill
-        VIA_CATALOG.forEach(item => {
-          if (newSigs.length < 5 && !newSigs.includes(item.id)) {
-            newSigs.push(item.id);
-          }
-        });
+      // 更新頂部顯示
+      document.getElementById('savedCountText').textContent = filledDays;
+
+      // 更新總覽 TAB 統計
+      document.getElementById('statCompletedDays').textContent = `${filledDays} / 42`;
+      const pct = Math.round((filledDays / 42) * 100);
+      document.getElementById('statPercentText').textContent = `完成率 ${pct}%`;
+      document.getElementById('statTotalWords').textContent = totalWords.toLocaleString();
+
+      if (ratingCount > 0) {
+        document.getElementById('statAvgRating').textContent = (ratingSum / ratingCount).toFixed(1);
+      } else {
+        document.getElementById('statAvgRating').textContent = '--';
       }
 
-      appState.signatureStrengths = newSigs;
-      saveToLocalStorage();
-      updateUI();
-      closeSignatureModal();
-      showToast('個人 5 大標誌長處已更新完成！', 'success');
+      // 找出最常調用長處
+      let maxStr = '尚未記錄';
+      let maxCnt = 0;
+      for (const k in countMap) {
+        if (countMap[k] > maxCnt) {
+          maxCnt = countMap[k];
+          const obj = VIA_DATABASE.find(x => x.id === k);
+          if (obj) maxStr = obj.name.split(' ')[0];
+        }
+      }
+      document.getElementById('statTopUsedStrength').textContent = maxStr;
+      document.getElementById('statTopUsedCount').textContent = `調用 ${maxCnt} 次`;
     }
 
-    // Helper: Toast Alert
-    function showToast(text, type = 'info') {
-      const toast = document.createElement('div');
-      const colors = {
-        success: 'bg-emerald-800 text-white',
-        warning: 'bg-amber-800 text-white',
-        info: 'bg-[#2B2621] text-white'
+    function renderWeekNavPills() {
+      for (let w = 1; w <= 6; w++) {
+        let cnt = 0;
+        const start = (w - 1) * 7 + 1;
+        for (let d = start; d < start + 7; d++) {
+          if (isRecordFilled(d)) cnt++;
+        }
+        const el = document.getElementById(`week-stat-${w}`);
+        if (el) el.textContent = `${cnt}/7`;
+      }
+    }
+
+    function renderMatrix42Grid() {
+      const container = document.getElementById('matrixGrid42');
+      if (!container) return;
+      container.innerHTML = '';
+
+      for (let i = 1; i <= 42; i++) {
+        const isFilled = isRecordFilled(i);
+        const r = dailyRecords[i];
+        const isCur = i === currentDayNumber;
+
+        const cell = document.createElement('div');
+        let bg = 'bg-[#FAF8F5] border-[#E2DCCE] text-stone-700';
+        if (isFilled) {
+          bg = 'bg-emerald-100 border-emerald-300 text-emerald-950 font-bold';
+        }
+        if (isCur) {
+          bg += ' ring-2 ring-stone-900';
+        }
+
+        cell.className = `p-2.5 rounded-xl border text-center cursor-pointer transition-all hover:scale-105 ${bg}`;
+        cell.onclick = () => {
+          switchMainTab('daily');
+          loadDayData(i);
+        };
+
+        const strObj = VIA_DATABASE.find(x => x.id === r.strengthId);
+        const shortName = strObj ? strObj.name.split(' ')[0] : '';
+
+        cell.innerHTML = `
+          <div class="text-[10px] text-stone-400 font-mono">D${i}</div>
+          <div class="text-xs truncate mt-0.5">${isFilled ? shortName : '—'}</div>
+          ${r.rating > 0 ? `<div class="text-[9px] text-amber-700">★${r.rating}</div>` : ''}
+        `;
+        container.appendChild(cell);
+      }
+    }
+
+    function renderOverviewTable() {
+      const tbody = document.getElementById('overviewTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      let hasRow = false;
+      for (let i = 1; i <= 42; i++) {
+        const r = dailyRecords[i];
+        if (isRecordFilled(i)) {
+          hasRow = true;
+          const strObj = VIA_DATABASE.find(x => x.id === r.strengthId) || VIA_DATABASE[0];
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-[#FAF8F4] transition-all';
+          tr.innerHTML = `
+            <td class="p-2.5 font-bold font-mono">Day ${i}</td>
+            <td class="p-2.5 text-stone-500">${r.date || '—'}</td>
+            <td class="p-2.5">
+              <span class="px-2 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 text-[11px] font-medium">
+                ${strObj.name.split(' ')[0]}
+              </span>
+            </td>
+            <td class="p-2.5 text-stone-700 max-w-xs truncate">${r.situation || r.action || '—'}</td>
+            <td class="p-2.5 font-bold text-amber-900">${r.rating > 0 ? `★ ${r.rating}` : '—'}</td>
+            <td class="p-2.5 text-right">
+              <button onclick="switchMainTab('daily'); loadDayData(${i});" class="text-stone-800 hover:text-black font-semibold text-xs underline">
+                編輯
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        }
+      }
+
+      if (!hasRow) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-stone-400 text-xs">目前尚未有任何日常記錄</td></tr>`;
+      }
+    }
+
+    // ==========================================
+    // 備份、還原與多格式匯出 (JSON, CSV, MD)
+    // ==========================================
+    function downloadBackupJson() {
+      const data = {
+        app: 'CharacterStrengthsInPractice',
+        version: '2.0',
+        exportDate: new Date().toISOString(),
+        userTop5Ids: userTop5Ids,
+        records: dailyRecords
       };
-      toast.className = `pointer-events-auto px-4 py-2.5 rounded-xl shadow-lg text-xs flex items-center space-x-2 transition-all transform duration-300 translate-y-2 opacity-0 ${colors[type] || colors.info}`;
-      toast.innerHTML = `<i class="fa-solid fa-circle-check"></i><span>${text}</span>`;
-      document.getElementById('toastBox').appendChild(toast);
-      
-      setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
-      setTimeout(() => {
-        toast.classList.add('opacity-0', 'translate-y-2');
-        setTimeout(() => toast.remove(), 300);
-      }, 3000);
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `VIA_性格長處實踐備份_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      showToast('已下載完整 JSON 備份檔');
     }
 
-    // Run on startup
-    window.addEventListener('DOMContentLoaded', initData);
+    function triggerRestoreUpload() {
+      document.getElementById('restoreJsonInput').click();
+    }
+
+    function handleRestoreJson(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed.records) {
+            dailyRecords = parsed.records;
+            localStorage.setItem('via_daily_records', JSON.stringify(dailyRecords));
+          }
+          if (parsed.userTop5Ids) {
+            userTop5Ids = parsed.userTop5Ids;
+            localStorage.setItem('via_user_top5', JSON.stringify(userTop5Ids));
+          }
+          loadDayData(1);
+          updateTotalProgressStats();
+          renderMatrix42Grid();
+          renderAllStrengthCards();
+          showToast('✓ 成功還原所有實踐資料！');
+        } catch (err) {
+          alert('備份檔案格式不正確，還原失敗。');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function downloadCsv() {
+      let csvContent = '\uFEFF'; // 加入 UTF-8 BOM 防止 Excel 中文亂碼
+      csvContent += '天數,週次,階段主題,日期,調用長處,對應美德,情境與挑戰,具體行動,結果如何,整合反思,效能自評分\n';
+
+      for (let i = 1; i <= 42; i++) {
+        const r = dailyRecords[i];
+        const str = VIA_DATABASE.find(x => x.id === r.strengthId) || VIA_DATABASE[0];
+        const meta = WEEKS_METADATA[Math.ceil(i / 7)];
+
+        const row = [
+          `Day ${i}`,
+          `第 ${Math.ceil(i / 7)} 週`,
+          meta.theme,
+          `"${(r.date || '').replace(/"/g, '""')}"`,
+          `"${str.name.replace(/"/g, '""')}"`,
+          `"${str.virtue.replace(/"/g, '""')}"`,
+          `"${(r.situation || '').replace(/"/g, '""')}"`,
+          `"${(r.action || '').replace(/"/g, '""')}"`,
+          `"${(r.result || '').replace(/"/g, '""')}"`,
+          `"${(r.reflection || '').replace(/"/g, '""')}"`,
+          r.rating || ''
+        ];
+        csvContent += row.join(',') + '\n';
+      }
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `VIA_性格長處六週實踐表格_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      showToast('已匯出 CSV 表格檔');
+    }
+
+    function downloadMarkdown() {
+      let md = `# 性格長處・六週日常實踐研究報告\n\n`;
+      md += `> 匯出日期：${new Date().toLocaleDateString('zh-TW')} ｜ Peterson & Seligman (2004) 正向心理學架構\n\n`;
+      
+      md += `## 一、 個人前 5 項核心標誌長處 (Signature Strengths)\n`;
+      userTop5Ids.forEach((tid, idx) => {
+        const item = VIA_DATABASE.find(x => x.id === tid);
+        if (item) {
+          md += `${idx + 1}. **${item.name}**（美德：${item.virtue}）\n   - 定義：${item.desc}\n`;
+        }
+      });
+      md += `\n---\n\n`;
+
+      md += `## 二、 42 天日常實踐與反思歷程\n\n`;
+      for (let i = 1; i <= 42; i++) {
+        const r = dailyRecords[i];
+        if (isRecordFilled(i)) {
+          const str = VIA_DATABASE.find(x => x.id === r.strengthId) || VIA_DATABASE[0];
+          const meta = WEEKS_METADATA[Math.ceil(i / 7)];
+
+          md += `### Day ${i} ｜ ${str.name.split(' ')[0]}（${str.virtue}）\n`;
+          md += `- **階段目標**：第 ${Math.ceil(i / 7)} 週 ${meta.title}\n`;
+          if (r.date) md += `- **實踐日期**：${r.date}\n`;
+          if (r.rating) md += `- **自我效能評分**：${r.rating} / 5 分\n`;
+          md += `\n**【情境 / 挑戰】**\n${r.situation || '（無）'}\n\n`;
+          md += `**【做了什麼】**\n${r.action || '（無）'}\n\n`;
+          md += `**【結果如何】**\n${r.result || '（無）'}\n\n`;
+          md += `**【整合反思】**\n${r.reflection || '（無）'}\n\n`;
+          md += `---\n\n`;
+        }
+      }
+
+      const blob = new Blob([md], { type: 'text/markdown;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `VIA_性格長處六週實踐成果報告_${new Date().toISOString().slice(0, 10)}.md`;
+      a.click();
+      showToast('已匯出 Markdown 報告書');
+    }
+
+    // ==========================================
+    // 上傳 VIA 報告 PDF 解析支援
+    // ==========================================
+    function triggerPdfUpload() {
+      document.getElementById('viaPdfInput').click();
+    }
+
+    async function handlePdfUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      showToast('正在解析 VIA 測驗報告...');
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        let fullText = '';
+
+        for (let p = 1; p <= Math.min(pdf.numPages, 5); p++) {
+          const page = await pdf.getPage(p);
+          const content = await page.getTextContent();
+          fullText += content.items.map(it => it.str).join(' ') + '\n';
+        }
+
+        // 智慧比對 24 項長處出現順序
+        const detectedIds = [];
+        VIA_DATABASE.forEach(item => {
+          const nameZh = item.name.split(' ')[0];
+          const nameEn = item.en.toLowerCase();
+          const posZh = fullText.indexOf(nameZh);
+          const posEn = fullText.toLowerCase().indexOf(nameEn);
+          let pos = -1;
+          if (posZh !== -1 && posEn !== -1) pos = Math.min(posZh, posEn);
+          else if (posZh !== -1) pos = posZh;
+          else if (posEn !== -1) pos = posEn;
+
+          if (pos !== -1) {
+            detectedIds.push({ id: item.id, pos });
+          }
+        });
+
+        detectedIds.sort((a, b) => a.pos - b.pos);
+        const top5FromPdf = detectedIds.slice(0, 5).map(x => x.id);
+
+        if (top5FromPdf.length >= 3) {
+          // 補齊 5 個
+          while (top5FromPdf.length < 5) {
+            const candidate = VIA_DATABASE.find(x => !top5FromPdf.includes(x.id));
+            if (candidate) top5FromPdf.push(candidate.id);
+          }
+          userTop5Ids = top5FromPdf;
+          localStorage.setItem('via_user_top5', JSON.stringify(userTop5Ids));
+          loadDayData(currentDayNumber);
+          renderAllStrengthCards();
+          showToast('✓ 成功辨識並更新您的前 5 大性格長處！');
+        } else {
+          openTopStrengthsModal();
+          showToast('PDF 文字較繁複，已為您打開手動選擇視窗');
+        }
+      } catch (err) {
+        console.error('PDF 解析失敗:', err);
+        openTopStrengthsModal();
+        showToast('建議直接手動勾選您的前 5 大長處');
+      }
+    }
+
+    // ==========================================
+    // 輕量 Toast 提示工具
+    // ==========================================
+    let toastTimeout = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.classList.remove('translate-y-10', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-10', 'opacity-0');
+      }, 2500);
+    }
   </script>
 </body>
 </html>
