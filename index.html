@@ -234,42 +234,57 @@
 
         <!-- Input 1: Context & Challenge -->
         <div class="space-y-1">
-          <label class="block text-xs font-bold text-ink flex items-center gap-1">
-            <span>情境 / 挑戰</span>
-            <span class="text-[11px] text-muted font-normal">（今天發生了什麼事？觸發點是什麼？）</span>
-          </label>
-          <textarea id="logContext" rows="2" placeholder="例：在研討會聽講時，講者提到一個非常冷門的模型..." class="w-full text-xs sm:text-sm p-3 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy leading-relaxed"></textarea>
+          <label class="block text-xs font-bold text-ink">情境 / 挑戰</label>
+          <textarea id="logContext" rows="2" placeholder="例：同學用 Claude 做了一個性格長處的日常實踐表，感覺很厲害..." class="w-full text-xs sm:text-sm p-3 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy leading-relaxed"></textarea>
         </div>
 
-        <!-- Input 2: Concrete Action -->
+        <!-- Input 2: What did you do? -->
         <div class="space-y-1">
-          <label class="block text-xs font-bold text-ink flex items-center gap-1">
-            <span>具體實踐行為</span>
-            <span class="text-[11px] text-muted font-normal">（我如何主動運用這項長處？做了什麼行動？）</span>
-          </label>
-          <textarea id="logAction" rows="3" placeholder="例：我刻意放下原本的預設立場，在筆記本寫下 3 個好奇問題，並在會後向講者請教..." class="w-full text-xs sm:text-sm p-3 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy leading-relaxed"></textarea>
+          <label class="block text-xs font-bold text-ink">做了什麼</label>
+          <textarea id="logAction" rows="2" placeholder="例：我也很想用 Claude 來做一些東西，但現在工具太多了，Claude 我還沒摸熟..." class="w-full text-xs sm:text-sm p-3 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy leading-relaxed"></textarea>
         </div>
 
-        <!-- Input 3: Feelings & Rating -->
-        <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">
-          <div class="sm:col-span-8 space-y-1">
-            <label class="block text-xs font-bold text-ink flex items-center gap-1">
-              <span>內心感受與體悟反思</span>
-              <span class="text-[11px] text-muted font-normal">（自我效能感、正向情緒或意外收穫）</span>
-            </label>
-            <textarea id="logReflection" rows="2" placeholder="例：感覺思緒被打開，且得到講者熱情的回饋，內心感到充實與喜悅..." class="w-full text-xs sm:text-sm p-3 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy leading-relaxed"></textarea>
+        <!-- Input 3: What was the result? -->
+        <div class="space-y-1">
+          <label class="block text-xs font-bold text-ink">結果如何</label>
+          <textarea id="logResult" rows="2" placeholder="例：能做的東西有限，我還是比較擅長用 ChatGPT 跟 Gemini..." class="w-full text-xs sm:text-sm p-3 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy leading-relaxed"></textarea>
+        </div>
+
+        <!-- Section 4: Integrated Reflection with 3 Direction Suggestions -->
+        <div class="space-y-3 pt-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-muted" id="reflectionGuideLabel">整合反思：優勢使用模式 / 情境適切性 / 彈性因應</span>
+            <button id="suggestBtn" onclick="generateThreeDirections()" class="px-3.5 py-1.5 rounded-lg border border-[#DDD3C5] bg-white hover:bg-[#F2ECE3] text-ink text-xs font-semibold shadow-sm transition active:scale-95">
+              給我三個方向
+            </button>
           </div>
-          <div class="sm:col-span-4 space-y-1">
-            <label class="block text-xs font-bold text-ink">
-              <span>長處發揮滿意度</span>
-              <span id="scoreDisplay" class="text-xs font-mono font-bold text-amber-700 ml-1">4 / 5</span>
-            </label>
-            <div class="bg-white p-3 rounded-xl border border-[#DDD3C5] flex flex-col justify-center gap-1">
-              <input type="range" id="logRating" min="1" max="5" value="4" oninput="updateRatingDisplay(this.value)" class="w-full accent-navy cursor-pointer">
-              <div class="flex justify-between text-[10px] text-muted font-mono">
-                <span>1 微弱</span>
-                <span>3 普通</span>
-                <span>5 充沛流暢</span>
+
+          <!-- Suggestion Cards Container -->
+          <div id="threeDirectionsContainer" class="hidden space-y-2.5">
+            <!-- 3 directional prompt cards injected by JS -->
+          </div>
+
+          <!-- Reflection Freeform Input & Satisfaction Rating -->
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 pt-1">
+            <div class="sm:col-span-8 space-y-1">
+              <label class="block text-xs font-bold text-ink flex items-center justify-between">
+                <span>整合反思內文</span>
+                <span class="text-[11px] text-muted font-normal">（可點擊上方引導卡片直接填入）</span>
+              </label>
+              <textarea id="logReflection" rows="4" placeholder="在此處整理你的省思、體悟或點選上方三個方向代入修改..." class="w-full text-xs sm:text-sm p-3 rounded-xl bg-white border border-[#DDD3C5] text-ink focus:outline-none focus:border-navy leading-relaxed"></textarea>
+            </div>
+            <div class="sm:col-span-4 space-y-1">
+              <label class="block text-xs font-bold text-ink">
+                <span>長處發揮滿意度</span>
+                <span id="scoreDisplay" class="text-xs font-mono font-bold text-amber-700 ml-1">4 / 5</span>
+              </label>
+              <div class="bg-white p-3 rounded-xl border border-[#DDD3C5] flex flex-col justify-center gap-1">
+                <input type="range" id="logRating" min="1" max="5" value="4" oninput="updateRatingDisplay(this.value)" class="w-full accent-navy cursor-pointer">
+                <div class="flex justify-between text-[10px] text-muted font-mono">
+                  <span>1 微弱</span>
+                  <span>3 普通</span>
+                  <span>5 充沛流暢</span>
+                </div>
               </div>
             </div>
           </div>
@@ -600,7 +615,7 @@
       activeVirtueFilter: 'all',
       // Top 5 Signature Strengths (Default: Curiosity, Judgment, Kindness, Humor, Gratitude)
       signatureStrengths: ["curiosity", "judgment", "kindness", "humor", "gratitude"],
-      // 42 Days Records keyed by day index: { 1: { date, strengthId, context, action, reflection, rating, completed } }
+      // 42 Days Records keyed by day index: { 1: { date, strengthId, context, action, result, reflection, rating, completed, directions: [] } }
       records: {}
     };
 
@@ -629,11 +644,13 @@
         appState.records[1] = {
           date: new Date().toLocaleDateString('zh-TW', { month: 'numeric', day: 'numeric' }),
           strengthId: "curiosity",
-          context: "下午參加碩專班討論，遇到同學提出不太認同的研究假設...",
-          action: "壓抑反駁衝動，主動開啟好奇心詢問對方背後的文獻依據與觀察視角。",
-          reflection: "驚訝地發現對方其實看見了我不曾接觸的在地現象，對話變得很有生產力。",
+          context: "同學用 Claude 做了一個性格長處的日常實踐表，感覺很厲害",
+          action: "我也很想用 Claude 來做一些東西，但現在工具太多了，Claude 我還沒摸熟",
+          result: "能做的東西有限，我還是比較擅長用 ChatGPT 跟 Gemini",
+          reflection: "",
           rating: 4,
-          completed: true
+          completed: true,
+          directions: []
         };
         saveToLocalStorage();
       }
@@ -803,6 +820,7 @@
       document.getElementById('logDate').value = rec.date || '';
       document.getElementById('logContext').value = rec.context || '';
       document.getElementById('logAction').value = rec.action || '';
+      document.getElementById('logResult').value = rec.result || '';
       document.getElementById('logReflection').value = rec.reflection || '';
       
       const rating = rec.rating !== undefined ? rec.rating : 4;
@@ -811,42 +829,188 @@
 
       handleStrengthChange();
       updateDayHeader(dayNum, rec);
+
+      // Restore generated three directions if available
+      renderThreeDirections(rec.directions || []);
+      updateDirectionThemeLabel();
     }
 
-    function updateDayHeader(dayNum, rec) {
-      const strengthId = document.getElementById('strengthSelect').value;
-      const stObj = VIA_CATALOG.find(x => x.id === strengthId);
-      const stName = stObj ? stObj.name : '';
-      const virtue = stObj ? stObj.virtue : '';
-
-      document.getElementById('currentDayTitle').textContent = `Day ${dayNum} · ${stName}`;
-      document.getElementById('currentDayVirtueBadge').textContent = virtue;
-
-      const dot = document.getElementById('dayCompletionDot');
-      if (rec && rec.completed) {
-        dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-600";
+    function updateDirectionThemeLabel() {
+      const w = appState.activeWeek;
+      const label = document.getElementById('reflectionGuideLabel');
+      if (w === 1) {
+        label.textContent = "整合反思：優勢使用模式 / 情境適切性 / 彈性因應";
+      } else if (w === 2) {
+        label.textContent = "整合反思：長處展現脈絡 / 觸發時機 / 身心耗損評估";
+      } else if (w === 3) {
+        label.textContent = "整合反思：主動實踐契機 / 行動阻礙克服 / 內在自我效能";
+      } else if (w === 4) {
+        label.textContent = "整合反思：跨域新維度嘗試 / 破除慣性視角 / 長處拓寬體驗";
+      } else if (w === 5) {
+        label.textContent = "整合反思：逆境心理緩衝 / 長處過與不及 / 韌性調適解方";
       } else {
-        dot.className = "w-2.5 h-2.5 rounded-full bg-amber-400";
+        label.textContent = "整合反思：多項長處協奏 / 情境彈性調度 / 生活哲學整合";
       }
     }
 
-    function handleStrengthChange() {
-      const sid = document.getElementById('strengthSelect').value;
-      const item = VIA_CATALOG.find(x => x.id === sid);
-      if (!item) return;
+    function generateThreeDirections() {
+      const day = appState.activeDay;
+      const week = appState.activeWeek;
+      const contextVal = document.getElementById('logContext').value.trim() || '日常互動情境';
+      const strengthId = document.getElementById('strengthSelect').value;
+      const stObj = VIA_CATALOG.find(x => x.id === strengthId);
+      const stName = stObj ? stObj.name.split('/')[0].trim() : '此長處';
+      const virtue = stObj ? stObj.virtue : '';
 
-      document.getElementById('cardStrengthName').textContent = `${item.name} ${item.en}`;
-      document.getElementById('cardVirtueTag').textContent = item.virtue;
-      document.getElementById('cardDefinition').textContent = item.desc;
-      document.getElementById('cardExample').textContent = item.example;
-      
-      updateDayHeader(appState.activeDay, appState.records[appState.activeDay]);
+      let directions = [];
+
+      if (week === 1) {
+        // Week 1: Aware (優勢使用模式 / 情境適切性 / 彈性因應)
+        directions = [
+          {
+            title: "優勢使用模式",
+            text: `在「${contextVal}」中，我主要以「${stName}」（${virtue}）來回應；對照我實際做的事與結果，這次比較接近＿＿＿（使用不足／適切使用／過度使用），我這樣判斷是因為＿＿＿。`
+          },
+          {
+            title: "情境適切性",
+            text: `就這個情境的性質來看，「${stName}」用在這裡的時機與程度＿＿＿（合適／不太合適），因為這個場合真正需要的是＿＿＿，而我提供的是＿＿＿。`
+          },
+          {
+            title: "彈性因應",
+            text: `若再遇到類似情境，我可以把「${stName}」的強度調整為＿＿＿，或改以＿＿＿的方式表現；也可以搭配「＿＿＿」這項長處來補足原本不足的部分。`
+          }
+        ];
+      } else if (week === 2) {
+        // Week 2: Explore
+        directions = [
+          {
+            title: "長處展現脈絡",
+            text: `回顧在「${contextVal}」的當下，引發我調動「${stName}」的關鍵觸發點是＿＿＿，當時我的身體或心理感受是＿＿＿。`
+          },
+          {
+            title: "不同場域對照",
+            text: `與平時在家庭或休閒時相比，在這種情境下運用「${stName}」，我發現自己容易＿＿＿（更自在／更壓抑／更謹慎），主因在於＿＿＿。`
+          },
+          {
+            title: "能量得失評估",
+            text: `這次展現「${stName}」之後，我的心理能量狀態是＿＿＿（感覺充沛、很有心流／感到耗竭、需要抽離），這反映了我使用這項長處時＿＿＿。`
+          }
+        ];
+      } else if (week === 3) {
+        // Week 3: Apply
+        directions = [
+          {
+            title: "主動介入歷程",
+            text: `今天在「${contextVal}」中，我並非被動反應，而是刻意選擇調用「${stName}」；我在採取行動前，內心先提醒自己＿＿＿。`
+          },
+          {
+            title: "阻礙與突破",
+            text: `在試圖發揮「${stName}」的過程中，我遇到的主要摩擦或阻力是＿＿＿，後來我透過＿＿＿來回應。`
+          },
+          {
+            title: "自我效能增長",
+            text: `看到行動帶來的結果，我對自己運用「${stName}」的信心變化是＿＿＿；這讓我肯定了自己在＿＿＿方面的潛力。`
+          }
+        ];
+      } else if (week === 4) {
+        // Week 4: New ways
+        directions = [
+          {
+            title: "新維度跨界運用",
+            text: `不同於以往習慣的發揮方式，這次我在「${contextVal}」中，嘗試用了一種新方法運用「${stName}」：＿＿＿。`
+          },
+          {
+            title: "跳脫慣性實驗",
+            text: `用全新方式調用這項長處時，一開始有些＿＿＿（不習慣／彆扭／興奮），但隨後我觀察到周遭或事情進展出現了＿＿＿的變化。`
+          },
+          {
+            title: "長處光譜拓寬",
+            text: `這個實驗打破了我原本對「${stName}」只能用在＿＿＿的既定框架，未來在＿＿＿的情況下我也能如法炮製。`
+          }
+        ];
+      } else if (week === 5) {
+        // Week 5: Challenge
+        directions = [
+          {
+            title: "逆境緩衝機制",
+            text: `面對「${contextVal}」帶來的壓力或挑戰，我將「${stName}」作為我的心理支點，幫助我穩住＿＿＿的情緒。`
+          },
+          {
+            title: "黃金中道（過與不及）",
+            text: `在壓力下，這項長處有沒有不小心變成「過度使用」（如變得挑剔、執著、冒進）？我認為這次在分寸拿捏上＿＿＿，因為＿＿＿。`
+          },
+          {
+            title: "韌性復原與轉化",
+            text: `透過「${stName}」的介入，這場挑戰對我的意義從原本的「＿＿＿」，轉化為「＿＿＿」。`
+          }
+        ];
+      } else {
+        // Week 6: Flexible use
+        directions = [
+          {
+            title: "長處複音協奏",
+            text: `在處理「${contextVal}」時，除了核心的「${stName}」，我還自然融合了「＿＿＿」這項長處，兩者發揮的綜效是＿＿＿。`
+          },
+          {
+            title: "情境敏捷度",
+            text: `觀察整個事情從起因到結果，我是在＿＿＿的轉折點上靈活切換長處策略，這讓我感到在應對複雜問題時更加游刃有餘。`
+          },
+          {
+            title: "生活實踐哲學",
+            text: `經過這六週的積累，「${stName}」已從刻意練習逐漸變成我的生活直覺，它讓我更清楚自己想成為一個＿＿＿的人。`
+          }
+        ];
+      }
+
+      renderThreeDirections(directions);
       autoSaveForm();
+      showToast('已為您生成三個思考方向引導！', 'info');
     }
 
-    function updateRatingDisplay(val) {
-      document.getElementById('scoreDisplay').textContent = `${val} / 5`;
+    function renderThreeDirections(directions) {
+      const container = document.getElementById('threeDirectionsContainer');
+      const btn = document.getElementById('suggestBtn');
+
+      if (!directions || directions.length === 0) {
+        container.classList.add('hidden');
+        container.innerHTML = '';
+        btn.textContent = '給我三個方向';
+        return;
+      }
+
+      container.classList.remove('hidden');
+      container.innerHTML = '';
+      btn.textContent = '重新產生';
+
+      directions.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "bg-white p-3.5 rounded-xl border border-[#DDD3C5] shadow-xs text-xs space-y-1.5 cursor-pointer hover:border-navy hover:bg-[#FAF8F5] transition group";
+        card.onclick = () => injectDirectionToReflection(item.title, item.text);
+        
+        card.innerHTML = `
+          <div class="flex items-center justify-between text-muted text-[11px]">
+            <span class="font-bold text-ink">${item.title}</span>
+            <span class="text-[10px] text-navy opacity-0 group-hover:opacity-100 transition"><i class="fa-solid fa-arrow-down mr-1"></i>填入反思框</span>
+          </div>
+          <p class="text-ink leading-relaxed">${item.text}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function injectDirectionToReflection(title, text) {
+      const refBox = document.getElementById('logReflection');
+      const currentVal = refBox.value.trim();
+      const insertChunk = `【${title}】\n${text}`;
+
+      if (currentVal) {
+        refBox.value = currentVal + '\n\n' + insertChunk;
+      } else {
+        refBox.value = insertChunk;
+      }
+      refBox.focus();
       autoSaveForm();
+      showToast(`已將「${title}」填入反思內文！`, 'success');
     }
 
     function autoSaveForm() {
@@ -854,7 +1018,7 @@
     }
 
     // Attach auto-save event listeners to input elements
-    ['logDate', 'logContext', 'logAction', 'logReflection'].forEach(id => {
+    ['logDate', 'logContext', 'logAction', 'logResult', 'logReflection'].forEach(id => {
       document.getElementById(id).addEventListener('input', autoSaveForm);
     });
 
@@ -864,19 +1028,35 @@
       const stVal = document.getElementById('strengthSelect').value;
       const contextVal = document.getElementById('logContext').value.trim();
       const actionVal = document.getElementById('logAction').value.trim();
+      const resultVal = document.getElementById('logResult').value.trim();
       const reflectionVal = document.getElementById('logReflection').value.trim();
       const ratingVal = parseInt(document.getElementById('logRating').value);
 
-      const isCompleted = Boolean(actionVal.length > 3 || contextVal.length > 3);
+      // Collect existing directions
+      const currentRec = appState.records[day] || {};
+      const dirNodes = document.querySelectorAll('#threeDirectionsContainer > div');
+      let currentDirs = currentRec.directions || [];
+      if (dirNodes.length > 0) {
+        currentDirs = [];
+        dirNodes.forEach(n => {
+          const t = n.querySelector('span.font-bold')?.textContent || '';
+          const p = n.querySelector('p')?.textContent || '';
+          if (t && p) currentDirs.push({ title: t, text: p });
+        });
+      }
+
+      const isCompleted = Boolean(actionVal.length > 2 || contextVal.length > 2 || resultVal.length > 2);
 
       appState.records[day] = {
         date: dateVal,
         strengthId: stVal,
         context: contextVal,
         action: actionVal,
+        result: resultVal,
         reflection: reflectionVal,
         rating: ratingVal,
-        completed: isCompleted
+        completed: isCompleted,
+        directions: currentDirs
       };
 
       saveToLocalStorage();
@@ -1102,7 +1282,7 @@
     function exportCSV() {
       saveCurrentDayForm();
       let csv = "\uFEFF"; // UTF-8 BOM for Excel
-      csv += "天數,週次,階段,日期,性格長處,所屬美德,是否為前5大標誌長處,滿意度(1-5),情境/挑戰,具體實踐行為,內心感受與體悟\n";
+      csv += "天數,週次,階段,日期,性格長處,所屬美德,是否為前5大標誌長處,滿意度(1-5),情境/挑戰,做了什麼,結果如何,整合反思\n";
 
       for (let d = 1; d <= 42; d++) {
         const week = Math.ceil(d / 7);
@@ -1116,9 +1296,10 @@
 
         const cleanContext = `"${(rec.context || '').replace(/"/g, '""')}"`;
         const cleanAction = `"${(rec.action || '').replace(/"/g, '""')}"`;
+        const cleanResult = `"${(rec.result || '').replace(/"/g, '""')}"`;
         const cleanReflect = `"${(rec.reflection || '').replace(/"/g, '""')}"`;
 
-        csv += `Day ${d},第${week}週,${stage},"${rec.date || ''}","${stName}","${stVirtue}",${isSig},${rating},${cleanContext},${cleanAction},${cleanReflect}\n`;
+        csv += `Day ${d},第${week}週,${stage},"${rec.date || ''}","${stName}","${stVirtue}",${isSig},${rating},${cleanContext},${cleanAction},${cleanResult},${cleanReflect}\n`;
       }
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -1147,8 +1328,9 @@
             md += `### Day ${d} [${rec.date || '無日期'}] · ${stName}\n`;
             md += `- **發揮滿意度**：${rec.rating} / 5 分\n`;
             md += `- **情境 / 挑戰**：${rec.context || '無'}\n`;
-            md += `- **具體實踐行為**：${rec.action || '無'}\n`;
-            md += `- **內心感受與體悟**：${rec.reflection || '無'}\n\n`;
+            md += `- **做了什麼**：${rec.action || '無'}\n`;
+            md += `- **結果如何**：${rec.result || '無'}\n`;
+            md += `- **整合反思**：${rec.reflection || '無'}\n\n`;
           } else {
             md += `### Day ${d}：*(尚未記錄)*\n\n`;
           }
